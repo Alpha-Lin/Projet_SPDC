@@ -2,6 +2,8 @@ package com.example.projet_spdc;
 
 import android.graphics.Color;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 
 public class Groupe {
@@ -14,4 +16,10 @@ public class Groupe {
     Color color;
     int order;
     String link;
+
+    @NonNull
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }
