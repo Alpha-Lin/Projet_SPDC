@@ -33,21 +33,35 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Nom" />
+                    android:text="Nom : " />
+
+                <TextView
+                    android:id="@+id/Debut_mandat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Début mandat : " />
+
+                <TextView
+                    android:id="@+id/Parti"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Parti : " />
 
                 <TextView
                     android:id="@+id/Groupe_MP"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Groupe" />
+                    android:text="Groupe : " />
 
                 <TextView
                     android:id="@+id/Circo_MP"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Circo" />
+                    android:text="Circo : " />
 
             </LinearLayout>
 
@@ -89,5 +103,24 @@
                 android:layout_height="wrap_content"
                 android:text="Amendements" />
         </LinearLayout>
+
+        <View
+            android:id="@+id/viewSeparate3"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/black"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/Contact"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Contact" />
+        </LinearLayout>
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
