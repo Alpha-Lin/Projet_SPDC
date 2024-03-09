@@ -31,6 +31,19 @@ public class Depute {
     ArrayList<String> adresses = new ArrayList<>();
     ArrayList<String> collab = new ArrayList<>();
 
+    ArrayList<String> otherMandates = new ArrayList<>();
+    ArrayList<String> otherOlderMandates = new ArrayList<>();
+    ArrayList<String> olderMandates = new ArrayList<>();
+    public void addOtherMandate(String str){
+        otherMandates.add(str);
+    }
+    public void addOtherOlderMandate(String str){
+        otherOlderMandates.add(str);
+    }
+    public void olderMandates(String str){
+        olderMandates.add(str);
+    }
+
     public void addWebsite(String str){
         websites.add(str);
     }
@@ -137,6 +150,10 @@ public class Depute {
 
     public void setGroupe(Groupe groupe) {
         this.groupe = groupe;
+    }
+
+    public void setGroupe(String str){
+       findGroupAndAddIt(str);
     }
 
     public String getParti_financier() {
@@ -267,9 +284,6 @@ public class Depute {
         this.twitter = twitter;
     }
 
-    ArrayList<String> otherMandates = new ArrayList<>();
-    ArrayList<String> otherOlderMandates = new ArrayList<>();
-    ArrayList<String> olderMandates = new ArrayList<>();
 
 
     @Override
@@ -282,7 +296,17 @@ public class Depute {
         for(Groupe groupe: Groupe.listeGroupe){
             if(Objects.equals(groupe.acronyme, accronymeGroupe)){
                 groupe.addDepute(this);
+
+                this.groupe = groupe;
             }
         }
+    }
+    //TODO
+    public void confirmDepute(){
+        listDepute.add(this);
+    }
+
+    public Depute() {
+        confirmDepute();
     }
 }

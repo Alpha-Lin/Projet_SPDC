@@ -76,7 +76,9 @@ public class DeputeLoader {
             decodeDepute(depute);
         }
     }
-    void decodeDepute(JSONObject jsonObject){
 
+    //TODO
+    void decodeDepute(JSONObject jsonObject){
+        Depute depute = new Depute();
     }
 }
