@@ -5,6 +5,7 @@ import android.graphics.Color;
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Groupe {
     static ArrayList<Groupe> listeGroupe = new ArrayList<>();
@@ -16,6 +17,8 @@ public class Groupe {
     Color color;
     int order;
     String link;
+
+    ArrayList<Depute> listDepute = new ArrayList<>();
 
 
     Boolean currentlyExist;
@@ -111,4 +114,18 @@ public class Groupe {
     public void setColor(String color){
 
     }
+
+    public ArrayList<Depute> getListDepute() {
+        return listDepute;
+    }
+
+    public void setListDepute(ArrayList<Depute> listDepute) {
+        this.listDepute = listDepute;
+    }
+
+    public void addDepute(Depute d){
+        listDepute.add(d);
+    }
+
+
 }
