@@ -151,6 +151,7 @@ public class Depute {
     public void setGroupe(Groupe groupe) {
         this.groupe = groupe;
     }
+
     public void setGroupe(String str){
        findGroupAndAddIt(str);
     }
@@ -284,6 +285,7 @@ public class Depute {
     }
 
 
+
     @Override
     public String toString() {
         return "Depute{" +
@@ -294,6 +296,7 @@ public class Depute {
         for(Groupe groupe: Groupe.listeGroupe){
             if(Objects.equals(groupe.acronyme, accronymeGroupe)){
                 groupe.addDepute(this);
+
                 this.groupe = groupe;
             }
         }

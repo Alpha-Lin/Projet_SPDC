@@ -17,9 +17,9 @@ import java.net.URL;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class DeputeLoader {
-    public void research(String slug) {
-        String param = "https://www.nosdeputes.fr/organisme/"+slug+"/json";
+public class GroupeLoader {
+    public void research() {
+        String param = "https://www.nosdeputes.fr/organismes/groupe/json";
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Handler handler = new Handler(Looper.getMainLooper());
         executor.execute(new Runnable() {
@@ -68,17 +68,28 @@ public class DeputeLoader {
         }
         return result.toString();
     }
-    void decodeJson(String str) throws JSONException {
-        JSONObject jso = new JSONObject(str);
-        JSONArray deputies = jso.getJSONArray("deputes");
-        for(int i = 0; i < deputies.length(); i++){
-            JSONObject depute = (deputies.getJSONObject(i)).getJSONObject("depute");
-            decodeDepute(depute);
-        }
+    void transformJSONObjectIntoGroupe(JSONObject object) throws JSONException {
+        Groupe groupe = new Groupe();
+        groupe.setId(Integer.parseInt(object.getString("id")));
+        groupe.setSlug(object.getString("slug"));
+        groupe.setNom(object.getString("nom"));
+        groupe.setAcronyme(object.getString("acronyme"));
+        groupe.setCurrentlyExist(Boolean.valueOf(object.getString("groupe_actuel")));
+        groupe.setColor(object.getString("couleur"));
+        groupe.setLink(object.getString("url_nosdeputes_api"));
+        groupe.confirmGroup();
     }
 
-    //TODO
-    void decodeDepute(JSONObject jsonObject){
-        Depute depute = new Depute();
+    void decodeJson(String str) throws JSONException {
+        JSONObject jso = new JSONObject(str);
+        JSONArray jsonArray = jso.getJSONArray("organismes");
+        for(int i = 0; i < jsonArray.length(); i++){
+            JSONObject organisme = jsonArray.getJSONObject(i);
+            JSONObject insideOrganisme = organisme.getJSONObject("organisme");
+            Log.w("ijdfjhdfqg",organisme.toString());
+            Log.w("ijdfjhdfqg",insideOrganisme.toString());
+
+            transformJSONObjectIntoGroupe(insideOrganisme);
+        }
     }
 }
