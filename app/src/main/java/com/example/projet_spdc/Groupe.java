@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import java.util.ArrayList;
 
 public class Groupe {
-    static ArrayList<Groupe> listeGroupe;
+    static ArrayList<Groupe> listeGroupe = new ArrayList<>();
     int id;
     String slug;
     String nom;
@@ -100,8 +100,12 @@ public class Groupe {
     public void setLink(String link) {
         this.link = link;
     }
+    //TODO
     public void confirmGroup(){
-
+        if(listeGroupe == null){
+            listeGroupe = new ArrayList<>();
+        }
+        listeGroupe.add(this);
     }
     //TODO
     public void setColor(String color){

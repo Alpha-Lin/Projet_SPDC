@@ -14,7 +14,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -76,7 +75,7 @@ public class GroupeLoader {
         groupe.setNom(object.getString("nom"));
         groupe.setAcronyme(object.getString("acronyme"));
         groupe.setCurrentlyExist(Boolean.valueOf(object.getString("groupe_actuel")));
-        groupe.setColor(object.getString("color"));
+        groupe.setColor(object.getString("couleur"));
         groupe.setLink(object.getString("url_nosdeputes_api"));
         groupe.confirmGroup();
     }
@@ -86,7 +85,11 @@ public class GroupeLoader {
         JSONArray jsonArray = jso.getJSONArray("organismes");
         for(int i = 0; i < jsonArray.length(); i++){
             JSONObject organisme = jsonArray.getJSONObject(i);
-            transformJSONObjectIntoGroupe(organisme);
+            JSONObject insideOrganisme = organisme.getJSONObject("organisme");
+            Log.w("ijdfjhdfqg",organisme.toString());
+            Log.w("ijdfjhdfqg",insideOrganisme.toString());
+
+            transformJSONObjectIntoGroupe(insideOrganisme);
         }
     }
 }
