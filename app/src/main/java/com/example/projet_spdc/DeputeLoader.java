@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -67,16 +68,15 @@ public class DeputeLoader {
         }
         return result.toString();
     }
-    String decodeJson(String str) throws JSONException {
+    void decodeJson(String str) throws JSONException {
         JSONObject jso = new JSONObject(str);
-        JSONObject coord = jso.getJSONObject("coord");
-        JSONObject main = jso.getJSONObject("main");
+        JSONArray deputies = jso.getJSONArray("deputes");
+        for(int i = 0; i < deputies.length(); i++){
+            JSONObject depute = (deputies.getJSONObject(i)).getJSONObject("depute");
+            decodeDepute(depute);
+        }
+    }
+    void decodeDepute(JSONObject jsonObject){
 
-        String result = "Météo de la ville de " + ": \n";
-        result += "Température: "+main.getString("temp");
-        result += "\nLatitude: "+coord.getString("lat");
-        result += "\nLOngitude: "+coord.getString("lon");
-
-        return result;
     }
 }
