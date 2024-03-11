@@ -13,19 +13,33 @@ public class GroupeActivity extends AppCompatActivity {
 
     TextView groupe;
     TextView nb;
-    //ListView list;
+    ListView list;
+    TextView accro;
     Groupe gr;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        /*
-        groupe = (TextView)findViewById(R.id.groupe);
-        nb = (TextView)findViewById(R.id.nb);
-        list = (ListView)findViewById(R.id.liste);
-        ArrayList listMP = new ArrayList<>();
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.activity_groupe, R.id.liste, listMP);
-        */
+        setContentView(R.layout.activity_groupe);
+
+        gr = Groupe.listeGroupe.get(getIntent().getIntExtra("groupe",0));
+
+
+        groupe = (TextView)findViewById(R.id.groupeInput);
+        nb = (TextView)findViewById(R.id.nbDepute);
+        list = (ListView)findViewById(R.id.listMPGroupe);
+        accro = (TextView)findViewById(R.id.acronymeInput);
+        ArrayList<String> strList = new ArrayList<>();
+        for(Depute d : gr.listDepute){
+            strList.add(d.nom_de_famille);
+        }
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.activity_groupe, R.id.liste,strList );
+
+        list.setAdapter(arrayAdapter);
+        groupe.setText(" "+gr.nom);
+        nb.setText(" "+strList.size());
+        accro.setText(" "+gr.acronyme);
+
+
     }
 
 
