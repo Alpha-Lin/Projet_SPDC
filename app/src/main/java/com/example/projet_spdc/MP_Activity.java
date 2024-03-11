@@ -26,8 +26,12 @@ import java.util.concurrent.Executors;
 
 public class MP_Activity extends AppCompatActivity {
 
+    Depute depute;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        depute = Depute.listDepute.get(getIntent().getIntExtra("depute",0));
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mp);
 
@@ -38,7 +42,7 @@ public class MP_Activity extends AppCompatActivity {
         executor.execute(new Runnable() {
             @Override
             public void run() {
-                String data = Common.getDataFromHTTP("https://www.nosdeputes.fr/mireille-clapot/json");
+                String data = Common.getDataFromHTTP("https://www.nosdeputes.fr/mireille-clapot/json"); // a changer avec la récupération de député
                 Bitmap data_photo = Common.getImageFromHTTP("https://nosdeputes.fr/depute/photo/mireille-clapot/200");
                 handler.post(new Runnable() {
                     @Override

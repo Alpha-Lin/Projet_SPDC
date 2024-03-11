@@ -86,9 +86,6 @@ public class GroupeLoader {
         for(int i = 0; i < jsonArray.length(); i++){
             JSONObject organisme = jsonArray.getJSONObject(i);
             JSONObject insideOrganisme = organisme.getJSONObject("organisme");
-            Log.w("ijdfjhdfqg",organisme.toString());
-            Log.w("ijdfjhdfqg",insideOrganisme.toString());
-
             transformJSONObjectIntoGroupe(insideOrganisme);
         }
     }
