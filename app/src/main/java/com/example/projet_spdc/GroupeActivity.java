@@ -33,10 +33,11 @@ public class GroupeActivity extends AppCompatActivity {
             strList.add(d.nom_de_famille);
         }
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.activity_groupe, R.id.liste,strList );
+
         list.setAdapter(arrayAdapter);
-        groupe.setText(gr.nom);
-        nb.setText(strList.size());
-        accro.setText(gr.acronyme);
+        groupe.setText(" "+gr.nom);
+        nb.setText(" "+strList.size());
+        accro.setText(" "+gr.acronyme);
 
 
     }
