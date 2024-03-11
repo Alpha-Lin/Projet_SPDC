@@ -16,11 +16,9 @@
         <activity
             android:name=".MP_Activity"
             android:exported="false" />
-
         <activity
             android:name=".GroupeActivity"
             android:exported="false" />
-
         <activity
             android:name=".MainActivity"
             android:exported="true">
