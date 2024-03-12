@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Projet_SPDC</string>
+    <string name="groupe">Groupe</string>
+    <string name="nb">nb</string>
+    <string name="liste_des_d_put_s">Liste des députés</string>
+    <string name="groupename">Groupe:</string>
+    <string name="acronyme">Acronyme:</string>
+    <string name="nombre_de_d_put_s">Nombre de députés</string>
 </resources>
