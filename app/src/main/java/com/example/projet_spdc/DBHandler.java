@@ -55,7 +55,7 @@ public class DBHandler extends SQLiteOpenHelper {
         long newRowId = db.insert(DBContract.favLaw.TABLE_NAME,null,row);
     }
 
-    public List<MP> selectAllFavMP() {
+    /*public List<Depute> selectAllFavMP() {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(
@@ -68,14 +68,14 @@ public class DBHandler extends SQLiteOpenHelper {
                 null
         );
 
-        List<MP> MPs = new ArrayList<>();
+        List<Depute> MPs = new ArrayList<>();
 
         while(cursor.moveToNext()){
             int indexId = cursor.getColumnIndex(DBContract.favMP._ID);
 
             int id = (int) cursor.getLong((indexId));
 
-            MP tmp = new MP(id);
+            Depute tmp = new Depute(id);
             MPs.add(tmp);
         }
         cursor.close();
@@ -83,7 +83,7 @@ public class DBHandler extends SQLiteOpenHelper {
         return MPs;
     }
 
-    public List<Group> selectAllFavGroup() {
+    public List<Groupe> selectAllFavGroup() {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(
@@ -96,14 +96,14 @@ public class DBHandler extends SQLiteOpenHelper {
                 null
         );
 
-        List<Group> Groups = new ArrayList<>();
+        List<Groupe> Groups = new ArrayList<>();
 
         while(cursor.moveToNext()){
             int indexId = cursor.getColumnIndex(DBContract.favMP._ID);
 
             int id = (int) cursor.getLong((indexId));
 
-            Group tmp = new Group(id);
+            Groupe tmp = new Groupe(id);
             Groups.add(tmp);
         }
         cursor.close();
@@ -111,7 +111,7 @@ public class DBHandler extends SQLiteOpenHelper {
         return Groups;
     }
 
-    public List<Law> selectAllFavLaw() {
+    /*public List<Law> selectAllFavLaw() {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(
@@ -137,7 +137,7 @@ public class DBHandler extends SQLiteOpenHelper {
         cursor.close();
 
         return Laws;
-    }
+    }*/
 
     public void deleteFavMP(int id){
         SQLiteDatabase db = this.getWritableDatabase();

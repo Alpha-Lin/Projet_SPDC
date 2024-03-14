@@ -1,6 +1,7 @@
 package com.example.projet_spdc;
 
 import android.graphics.Color;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -105,9 +106,7 @@ public class Groupe {
     }
     //TODO
     public void confirmGroup(){
-        if(listeGroupe == null){
-            listeGroupe = new ArrayList<>();
-        }
+        Log.d("Groupe ajout", "fait");
         listeGroupe.add(this);
     }
     //TODO

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class Depute {
-    static ArrayList<Depute> listDepute;
+    static ArrayList<Depute> listDepute = new ArrayList<>();;
     int id;
     String nom_de_famille;
     String prenom;
@@ -307,6 +307,5 @@ public class Depute {
     }
 
     public Depute() {
-        confirmDepute();
     }
 }
