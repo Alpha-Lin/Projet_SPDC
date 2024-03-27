@@ -30,20 +30,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </LinearLayout>
+
     <LinearLayout
+        android:id="@+id/layoutMPs"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/liste_des_d_put_s">
-        </TextView>
+            android:text="@string/liste_des_d_put_s"></TextView>
+
         <ListView
+            android:id="@+id/liste"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/liste">
-        </ListView>
+            android:layout_height="match_parent"></ListView>
     </LinearLayout>
 
 </LinearLayout>

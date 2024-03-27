@@ -106,8 +106,8 @@ public class Groupe {
     }
     //TODO
     public void confirmGroup(){
-        Log.d("Groupe ajout", "fait");
         listeGroupe.add(this);
+        Log.d("Groupe ajout", "fait");
     }
     //TODO
     public void setColor(String color){

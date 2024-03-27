@@ -1,15 +1,44 @@
 package com.example.projet_spdc;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class GroupeLoader extends Loader {
-    public GroupeLoader(){
-        super();
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+public class GroupeLoader {
+    String param;
+    MainActivity mainActivity;
+
+    public GroupeLoader(MainActivity mainActivity){
         param = "https://www.nosdeputes.fr/organismes/groupe/json";
+        this.mainActivity = mainActivity;
+    }
+
+    public void research() {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Handler handler = new Handler(Looper.getMainLooper());
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                String data = Common.getDataFromHTTP(param);
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            decodeJson(data);
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                });
+            }
+        });
     }
 
     private void transformJSONObjectIntoGroupe(JSONObject object) throws JSONException {
@@ -24,17 +53,12 @@ public class GroupeLoader extends Loader {
         groupe.confirmGroup();
     }
 
-    @Override
-    protected void decodeJson(String str) throws JSONException {
-        Log.d("decodeJson", str);
+    public void decodeJson(String str) throws JSONException {
         JSONObject jso = new JSONObject(str);
         JSONArray jsonArray = jso.getJSONArray("organismes");
-        Log.d("Orga", jsonArray.length() + "");
         for(int i = 0; i < jsonArray.length(); i++){
             JSONObject organisme = jsonArray.getJSONObject(i);
             JSONObject insideOrganisme = organisme.getJSONObject("organisme");
-            Log.w("ijdfjhdfqg",organisme.toString());
-            Log.w("ijdfjhdfqg",insideOrganisme.toString());
 
             transformJSONObjectIntoGroupe(insideOrganisme);
         }

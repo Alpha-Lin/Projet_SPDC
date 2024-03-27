@@ -1,5 +1,7 @@
 package com.example.projet_spdc;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -11,7 +13,7 @@ public class Depute {
     String sexe;
     String date_naissance;
     String lieu_naissance;
-    int departement;
+    String departement;
     String nom_departement;
     int num_circo;
     String mandat_debut;
@@ -112,11 +114,11 @@ public class Depute {
         this.lieu_naissance = lieu_naissance;
     }
 
-    public int getDepartement() {
+    public String getDepartement() {
         return departement;
     }
 
-    public void setDepartement(int departement) {
+    public void setDepartement(String departement) {
         this.departement = departement;
     }
 
@@ -304,6 +306,7 @@ public class Depute {
     //TODO
     public void confirmDepute(){
         listDepute.add(this);
+        Log.d("MP ajout", "fait");
     }
 
     public Depute() {

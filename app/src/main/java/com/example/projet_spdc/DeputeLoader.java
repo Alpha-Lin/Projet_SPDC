@@ -3,6 +3,8 @@ package com.example.projet_spdc;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,20 +19,46 @@ import java.net.URL;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class DeputeLoader extends Loader {
-    public DeputeLoader(){
-        super();
+public class DeputeLoader {
+    String param;
+    MainActivity mainActivity;
+
+    public DeputeLoader(MainActivity mainActivity){
         param = "https://www.nosdeputes.fr/deputes/json";
+        this.mainActivity = mainActivity;
     }
+
+    public void research() {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Handler handler = new Handler(Looper.getMainLooper());
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                String data = Common.getDataFromHTTP(param);
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            decodeJson(data);
+
+                            mainActivity.onMPsLoaded();
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+
 
     public DeputeLoader(String slug){
         super();
         param = "https://www.nosdeputes.fr/organisme/" + slug + "/json";
     }
 
-    @Override
-    protected void decodeJson(String str) throws JSONException {
-        Log.d("Erreur HTTP", str);
+    public void decodeJson(String str) throws JSONException {
         JSONObject jso = new JSONObject(str);
         JSONArray deputies = jso.getJSONArray("deputes");
         for(int i = 0; i < deputies.length(); i++){
@@ -48,7 +76,7 @@ public class DeputeLoader extends Loader {
         depute.setSexe(jsonObject.getString("sexe"));
         depute.setDate_naissance(jsonObject.getString("date_naissance"));
         depute.setLieu_naissance(jsonObject.getString("lieu_naissance"));
-        depute.setDepartement(Integer.parseInt(jsonObject.getString("num_deptmt")));
+        depute.setDepartement(jsonObject.getString("num_deptmt"));
         depute.setNum_circo(jsonObject.getInt("num_circo"));
         depute.setMandat_debut(jsonObject.getString("mandat_debut"));
         depute.setGroupe(jsonObject.getString("groupe_sigle"));
