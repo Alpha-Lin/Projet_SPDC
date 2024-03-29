@@ -297,6 +297,7 @@ public class Depute {
     public void findGroupAndAddIt(String accronymeGroupe){
         for(Groupe groupe: Groupe.listeGroupe){
             if(Objects.equals(groupe.acronyme, accronymeGroupe)){
+                Log.w("~~~~~~~~~~", groupe.acronyme);
                 groupe.addDepute(this);
 
                 this.groupe = groupe;

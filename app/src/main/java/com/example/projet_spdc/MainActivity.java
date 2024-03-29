@@ -22,11 +22,17 @@ public class MainActivity extends AppCompatActivity {
 
         /*Intent intent_MP = new Intent(this, MP_Activity.class);
         intent_MP.putExtra("MP", );
-        startActivity(intent_MP);
+        startActivity(intent_MP);*/
+        Log.w("lollllllll",""+Groupe.listeGroupe.size());
+        for(Groupe g : Groupe.listeGroupe){
+            Log.w("rrrrrrrrrrrr",g.getNom()+" "+g.listDepute.size());
+        }
 
-        /*Intent group_activity = new Intent(this, GroupeActivity.class);
+        Intent group_activity = new Intent(this, GroupeActivity.class);
         group_activity.putExtra("groupe",2);
-        startActivity(group_activity);*/
+        startActivity(group_activity);
+
+
 
     }
 
@@ -35,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d("affichage", "nb mps : " + Depute.listDepute.size());
 
         for(int i = 0; i < Depute.listDepute.size(); i++){
-            Log.d("J'affiche", "");
+            //Log.d("J'affiche", "");
             generateTextViewNom(Depute.listDepute.get(i).getNom_de_famille(), Integer.parseInt("1" + i), layout_deputes);
             /*generateEditTextAnswer(Integer.parseInt("2" + i), layout_questions);
             generateTextViewAnswer(questions.get(i).getReponse(), Integer.parseInt("3" + i), layout_questions);*/

@@ -42,6 +42,11 @@ public class DeputeLoader {
                             decodeJson(data);
 
                             mainActivity.onMPsLoaded();
+                            Log.w("lollllllll",""+Groupe.listeGroupe.size());
+                            for(Groupe g : Groupe.listeGroupe){
+                                Log.w("rrrrrrrrrrrr",g.getNom()+" "+g.listDepute.size());
+                            }
+
                         } catch (JSONException e) {
                             throw new RuntimeException(e);
                         }

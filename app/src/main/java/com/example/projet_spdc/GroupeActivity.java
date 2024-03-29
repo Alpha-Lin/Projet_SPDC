@@ -3,6 +3,7 @@ package com.example.projet_spdc;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -33,7 +34,7 @@ public class GroupeActivity extends AppCompatActivity {
             strList.add(d.nom_de_famille);
         }
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.activity_groupe, R.id.liste,strList );
-
+        Log.w("ffffffffff",""+strList.size());
         list.setAdapter(arrayAdapter);
         groupe.setText(" "+gr.nom);
         nb.setText(" "+strList.size());
