@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class Depute {
-    static ArrayList<Depute> listDepute = new ArrayList<>();;
+    static ArrayList<Depute> listDepute = new ArrayList<>();
+    private ArrayList<Vote> listVotes = new ArrayList<>();
     int id;
     String nom_de_famille;
     String prenom;
@@ -297,13 +298,22 @@ public class Depute {
     public void findGroupAndAddIt(String accronymeGroupe){
         for(Groupe groupe: Groupe.listeGroupe){
             if(Objects.equals(groupe.acronyme, accronymeGroupe)){
+                Log.w("~~~~~~~~~~", groupe.acronyme);
                 groupe.addDepute(this);
 
                 this.groupe = groupe;
             }
         }
     }
-    //TODO
+
+    public void addVote(Vote vote){
+        listVotes.add(vote);
+    }
+
+    public ArrayList<Vote> getListVotes(){
+        return listVotes;
+    }
+
     public void confirmDepute(){
         listDepute.add(this);
         Log.d("MP ajout", "fait");

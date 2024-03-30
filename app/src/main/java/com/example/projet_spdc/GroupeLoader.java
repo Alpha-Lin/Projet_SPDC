@@ -1,5 +1,6 @@
 package com.example.projet_spdc;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -35,6 +36,8 @@ public class GroupeLoader {
                         } catch (JSONException e) {
                             throw new RuntimeException(e);
                         }
+
+                        mainActivity.onGroupeLoaded();
                     }
                 });
             }

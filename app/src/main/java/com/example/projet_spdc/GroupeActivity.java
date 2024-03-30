@@ -3,6 +3,7 @@ package com.example.projet_spdc;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -10,11 +11,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class GroupeActivity extends AppCompatActivity {
-
-    TextView groupe;
-    TextView nb;
-    ListView list;
-    TextView accro;
     Groupe gr;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,23 +19,21 @@ public class GroupeActivity extends AppCompatActivity {
 
         gr = Groupe.listeGroupe.get(getIntent().getIntExtra("groupe",0));
 
+        TextView groupe = findViewById(R.id.nom_groupe);
+        TextView nb = findViewById(R.id.nb_mps);
+        TextView accro = findViewById(R.id.acronyme);
+        ListView list = findViewById(R.id.listMPGroupe);
 
-        groupe = (TextView)findViewById(R.id.groupeInput);
-        nb = (TextView)findViewById(R.id.nbDepute);
-        list = (ListView)findViewById(R.id.listMPGroupe);
-        accro = (TextView)findViewById(R.id.acronymeInput);
-        ArrayList<String> strList = new ArrayList<>();
-        for(Depute d : gr.listDepute){
-            strList.add(d.nom_de_famille);
+        ArrayList<String> listMPs = new ArrayList<>();
+        for(Depute d : gr.getListDepute()){
+            listMPs.add(d.getNom_de_famille() + " " + d.getPrenom());
         }
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.activity_groupe, R.id.liste,strList );
-
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.layout_mps_group, listMPs);
         list.setAdapter(arrayAdapter);
-        groupe.setText(" "+gr.nom);
-        nb.setText(" "+strList.size());
-        accro.setText(" "+gr.acronyme);
 
-
+        groupe.setText("Nom : "+ gr.getNom());
+        accro.setText("Acronyme : " + gr.getAcronyme());
+        nb.setText("Nombre de parlementaires : "+ gr.getListDepute().size());
     }
 
 
