@@ -2,11 +2,16 @@ package com.example.projet_spdc;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -34,6 +39,16 @@ public class GroupeActivity extends AppCompatActivity {
         groupe.setText("Nom : "+ gr.getNom());
         accro.setText("Acronyme : " + gr.getAcronyme());
         nb.setText("Nombre de parlementaires : "+ gr.getListDepute().size());
+        Context c = this;
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                Depute d = gr.listDepute.get(position);
+                Intent intent_MP = new Intent(c, MP_Activity.class);
+                intent_MP.putExtra("MP", d.getId());
+                startActivity(intent_MP);
+            }
+        });
     }
 
 
