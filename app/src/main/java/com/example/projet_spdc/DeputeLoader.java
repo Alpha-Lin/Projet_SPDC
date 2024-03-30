@@ -3,6 +3,8 @@ package com.example.projet_spdc;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,14 +20,21 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class DeputeLoader {
-    public void research(String slug) {
-        String param = "https://www.nosdeputes.fr/organisme/"+slug+"/json";
+    String param;
+    MainActivity mainActivity;
+
+    public DeputeLoader(MainActivity mainActivity){
+        param = "https://www.nosdeputes.fr/deputes/json";
+        this.mainActivity = mainActivity;
+    }
+
+    public void research() {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Handler handler = new Handler(Looper.getMainLooper());
         executor.execute(new Runnable() {
             @Override
             public void run() {
-                String data = getDataFromHTTP(param);
+                String data = Common.getDataFromHTTP(param);
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -34,41 +43,20 @@ public class DeputeLoader {
                         } catch (JSONException e) {
                             throw new RuntimeException(e);
                         }
+
+                        mainActivity.onMPsLoaded();
                     }
                 });
             }
         });
     }
 
-    private String getDataFromHTTP(String param) {
-        StringBuilder result = new StringBuilder();
-        HttpURLConnection connexion = null;
-        try {
-            URL url = new URL(param);
-            connexion = (HttpURLConnection) url.openConnection();
-            connexion.setRequestMethod("GET");
-            InputStream inputStream = connexion.getInputStream();
-            InputStreamReader inputStreamReader = new
-                    InputStreamReader(inputStream);
-            BufferedReader bf = new BufferedReader(inputStreamReader);
-            String ligne = "";
-            while ((ligne = bf.readLine()) != null) {
-                result.append(ligne);
-            }
-            inputStream.close();
-            bf.close();
-            connexion.disconnect();
-        }catch (IOException e){
-            result = new StringBuilder("Erreur d'internet");
-            Log.e("erreur",e.toString());
-        }
-        catch (Exception e) {
-            result = new StringBuilder("Erreur ");
-            Log.e("erreur",e.toString());
-        }
-        return result.toString();
+    public DeputeLoader(String slug){
+        super();
+        param = "https://www.nosdeputes.fr/organisme/" + slug + "/json";
     }
-    void decodeJson(String str) throws JSONException {
+
+    public void decodeJson(String str) throws JSONException {
         JSONObject jso = new JSONObject(str);
         JSONArray deputies = jso.getJSONArray("deputes");
         for(int i = 0; i < deputies.length(); i++){
@@ -77,8 +65,41 @@ public class DeputeLoader {
         }
     }
 
-    //TODO
-    void decodeDepute(JSONObject jsonObject){
+    private static void decodeDepute(JSONObject jsonObject) throws JSONException {
         Depute depute = new Depute();
+        depute.setId(jsonObject.getInt("id"));
+        depute.setNom_de_famille(jsonObject.getString("nom_de_famille"));
+        depute.setPrenom(jsonObject.getString("prenom"));
+        depute.setSexe(jsonObject.getString("sexe"));
+        depute.setDate_naissance(jsonObject.getString("date_naissance"));
+        depute.setLieu_naissance(jsonObject.getString("lieu_naissance"));
+        depute.setDepartement(jsonObject.getString("num_deptmt"));
+        depute.setNum_circo(jsonObject.getInt("num_circo"));
+        depute.setMandat_debut(jsonObject.getString("mandat_debut"));
+        depute.setGroupe(jsonObject.getString("groupe_sigle"));
+        depute.setParti_financier(jsonObject.getString("parti_ratt_financier"));
+
+        JSONArray sites_web = jsonObject.getJSONArray("sites_web");
+        for(int i = 0; i < sites_web.length(); i++)
+            depute.addWebsite(sites_web.getJSONObject(i).getString("site"));
+        JSONArray emails = jsonObject.getJSONArray("emails");
+        for(int i = 0; i < emails.length(); i++)
+            depute.addEmail(emails.getJSONObject(i).getString("email"));
+        JSONArray adresses = jsonObject.getJSONArray("adresses");
+        for(int i = 0; i < adresses.length(); i++)
+            depute.addAdress(adresses.getJSONObject(i).getString("adresse"));
+        JSONArray collaborateurs = jsonObject.getJSONArray("collaborateurs");
+        for(int i = 0; i < collaborateurs.length(); i++)
+            depute.addCollab(collaborateurs.getJSONObject(i).getString("collaborateur"));
+
+        depute.setProfession(jsonObject.getString("profession"));
+        depute.setPlace_en_hemycicle(Integer.parseInt(jsonObject.getString("place_en_hemicycle")));
+        depute.setUrl_an(jsonObject.getString("url_an"));
+        depute.setId_an(Integer.parseInt(jsonObject.getString("id_an")));
+        depute.setSlug(jsonObject.getString("slug"));
+        depute.setUrl_nosdeputes(jsonObject.getString("url_nosdeputes"));
+        depute.setNbmandat(jsonObject.getInt("nb_mandats"));
+        depute.setTwitter(jsonObject.getString("twitter"));
+        depute.confirmDepute();
     }
 }

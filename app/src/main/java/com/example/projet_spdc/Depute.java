@@ -1,17 +1,20 @@
 package com.example.projet_spdc;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class Depute {
-    static ArrayList<Depute> listDepute;
+    static ArrayList<Depute> listDepute = new ArrayList<>();
+    private ArrayList<Vote> listVotes = new ArrayList<>();
     int id;
     String nom_de_famille;
     String prenom;
     String sexe;
     String date_naissance;
     String lieu_naissance;
-    int departement;
+    String departement;
     String nom_departement;
     int num_circo;
     String mandat_debut;
@@ -112,11 +115,11 @@ public class Depute {
         this.lieu_naissance = lieu_naissance;
     }
 
-    public int getDepartement() {
+    public String getDepartement() {
         return departement;
     }
 
-    public void setDepartement(int departement) {
+    public void setDepartement(String departement) {
         this.departement = departement;
     }
 
@@ -295,18 +298,27 @@ public class Depute {
     public void findGroupAndAddIt(String accronymeGroupe){
         for(Groupe groupe: Groupe.listeGroupe){
             if(Objects.equals(groupe.acronyme, accronymeGroupe)){
+                Log.w("~~~~~~~~~~", groupe.acronyme);
                 groupe.addDepute(this);
 
                 this.groupe = groupe;
             }
         }
     }
-    //TODO
+
+    public void addVote(Vote vote){
+        listVotes.add(vote);
+    }
+
+    public ArrayList<Vote> getListVotes(){
+        return listVotes;
+    }
+
     public void confirmDepute(){
         listDepute.add(this);
+        Log.d("MP ajout", "fait");
     }
 
     public Depute() {
-        confirmDepute();
     }
 }
