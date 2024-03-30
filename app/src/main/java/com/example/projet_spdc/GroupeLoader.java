@@ -1,5 +1,6 @@
 package com.example.projet_spdc;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -16,7 +17,7 @@ public class GroupeLoader {
     MainActivity mainActivity;
 
     public GroupeLoader(MainActivity mainActivity){
-        param = "https://www.nosdeputes.fr/organismes/groupe/json";
+        param = "https://www.google.fr";
         this.mainActivity = mainActivity;
     }
 
@@ -26,12 +27,20 @@ public class GroupeLoader {
         executor.execute(new Runnable() {
             @Override
             public void run() {
-                String data = Common.getDataFromHTTP(param);
+                String data = Common.getDataFromHTTP("param");
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
                         try {
                             decodeJson(data);
+                            Log.d("lollllllll",""+Groupe.listeGroupe.size());
+                            for(Groupe g : Groupe.listeGroupe){
+                                Log.d("rrrrrrrrrrrr",g.getNom()+" "+g.listDepute.size());
+                            }
+
+                            /*Intent group_activity = new Intent(this, GroupeActivity.class);
+                            group_activity.putExtra("groupe",2);
+                            startActivity(group_activity);*/
                         } catch (JSONException e) {
                             throw new RuntimeException(e);
                         }
@@ -54,6 +63,7 @@ public class GroupeLoader {
     }
 
     public void decodeJson(String str) throws JSONException {
+        Log.d("Groupe loading", str);
         JSONObject jso = new JSONObject(str);
         JSONArray jsonArray = jso.getJSONArray("organismes");
         for(int i = 0; i < jsonArray.length(); i++){

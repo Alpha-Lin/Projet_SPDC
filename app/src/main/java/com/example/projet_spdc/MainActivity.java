@@ -17,20 +17,13 @@ public class MainActivity extends AppCompatActivity {
         GroupeLoader gr = new GroupeLoader(this);
         gr.research();
 
-        DeputeLoader mp = new DeputeLoader(this);
-        mp.research();
+        //DeputeLoader mp = new DeputeLoader(this);
+        //mp.research();
 
         /*Intent intent_MP = new Intent(this, MP_Activity.class);
         intent_MP.putExtra("MP", );
         startActivity(intent_MP);*/
-        Log.w("lollllllll",""+Groupe.listeGroupe.size());
-        for(Groupe g : Groupe.listeGroupe){
-            Log.w("rrrrrrrrrrrr",g.getNom()+" "+g.listDepute.size());
-        }
 
-        Intent group_activity = new Intent(this, GroupeActivity.class);
-        group_activity.putExtra("groupe",2);
-        startActivity(group_activity);
 
 
 
