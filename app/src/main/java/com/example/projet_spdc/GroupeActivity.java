@@ -21,7 +21,7 @@ public class GroupeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_groupe);
-
+        Log.w("meeeeeeeeee",""+Groupe.listeGroupe.size());
         gr = Groupe.listeGroupe.get(getIntent().getIntExtra("groupe",0));
 
         TextView groupe = findViewById(R.id.nom_groupe);

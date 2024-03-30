@@ -57,6 +57,8 @@
                         android:id="@+id/Groupe_MP"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:onClick="goToGroup"
+                        android:clickable="true"
                         android:layout_weight="1"
                         android:text="Groupe : " />
 
