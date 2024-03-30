@@ -43,7 +43,7 @@ public class MP_Activity extends AppCompatActivity {
         if(id_mp == -1)
             Log.d("donnée mal transmise", "");
 
-        MP = Depute.getListDepute().get(id_mp);
+        MP = Depute.getDeputee(id_mp);
 
         // Pour charger la photo de profile et les votes
         ExecutorService executor = Executors.newSingleThreadExecutor();

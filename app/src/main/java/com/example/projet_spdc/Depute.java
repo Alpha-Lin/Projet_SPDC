@@ -5,7 +5,7 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Depute {
+public class Depute implements Comparable<Depute>{
     static ArrayList<Depute> listDepute = new ArrayList<>();
     private ArrayList<Vote> listVotes = new ArrayList<>();
     int id;
@@ -321,4 +321,21 @@ public class Depute {
 
     public Depute() {
     }
+
+    @Override
+    public int compareTo(Depute o) {
+        if(this.getId() < o.getId()){
+            return -1;
+        }
+        if(this.getId() > o.getId()){
+            return 1;
+        }
+        return 0;
+    }
+
+    public static Depute getDeputee(int id){
+        return listDepute.stream().filter(depute -> depute.getId() == id)
+                .findFirst().get();
+    }
+
 }

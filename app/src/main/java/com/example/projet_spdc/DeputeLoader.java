@@ -40,6 +40,10 @@ public class DeputeLoader {
                     public void run() {
                         try {
                             decodeJson(data);
+                            Depute.listDepute.sort((o1, o2) -> o1.compareTo(o2));
+                            for(int i = 0; i < Depute.listDepute.size(); i++){
+                                Log.w("test order of mp",""+i+" "+Depute.listDepute.get(i).getId());
+                            }
                         } catch (JSONException e) {
                             throw new RuntimeException(e);
                         }
