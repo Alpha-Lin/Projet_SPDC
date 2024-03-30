@@ -7,54 +7,30 @@
     tools:context=".GroupeActivity"
     android:orientation="vertical"
     >
-    <LinearLayout
+
+    <TextView
+        android:id="@+id/nom_groupe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        android:text="@string/groupename" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/groupename" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/groupeInput" />
-    </LinearLayout>
-    <LinearLayout
+    <TextView
+        android:id="@+id/acronyme"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/acronyme" />
+        android:layout_height="wrap_content"
+        android:text="@string/acronyme" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/acronymeInput" />
-    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <LinearLayout
+
+        <TextView
+            android:id="@+id/nb_mps"
             android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/nombre_de_d_put_s"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/nbDepute"
-                />
-        </LinearLayout>
+            android:layout_height="wrap_content"
+            android:text="@string/nombre_de_d_put_s" />
+
         <ListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"

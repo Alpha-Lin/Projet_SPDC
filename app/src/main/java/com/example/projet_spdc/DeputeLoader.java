@@ -40,23 +40,16 @@ public class DeputeLoader {
                     public void run() {
                         try {
                             decodeJson(data);
-
-                            mainActivity.onMPsLoaded();
-                            Log.w("lollllllll",""+Groupe.listeGroupe.size());
-                            for(Groupe g : Groupe.listeGroupe){
-                                Log.w("rrrrrrrrrrrr",g.getNom()+" "+g.listDepute.size());
-                            }
-
                         } catch (JSONException e) {
                             throw new RuntimeException(e);
                         }
+
+                        mainActivity.onMPsLoaded();
                     }
                 });
             }
         });
     }
-
-
 
     public DeputeLoader(String slug){
         super();
@@ -72,7 +65,6 @@ public class DeputeLoader {
         }
     }
 
-    //TODO
     private static void decodeDepute(JSONObject jsonObject) throws JSONException {
         Depute depute = new Depute();
         depute.setId(jsonObject.getInt("id"));
