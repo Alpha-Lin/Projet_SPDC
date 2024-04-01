@@ -39,7 +39,6 @@ public class DeputeLoader {
                     public void run() {
                         try {
                             decodeJson(data);
-                            Depute.listDepute.sort((o1, o2) -> o1.compareTo(o2));
                         } catch (JSONException e) {
                             throw new RuntimeException(e);
                         }

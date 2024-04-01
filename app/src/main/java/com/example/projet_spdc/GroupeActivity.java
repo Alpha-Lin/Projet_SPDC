@@ -44,7 +44,7 @@ public class GroupeActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
                 Depute d = gr.listDepute.get(position);
                 Intent intent_MP = new Intent(c, MP_Activity.class);
-                intent_MP.putExtra("MP", d.getId());
+                intent_MP.putExtra("MP", d.getId() - 1);
                 startActivity(intent_MP);
             }
         });

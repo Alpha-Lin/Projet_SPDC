@@ -328,10 +328,4 @@ public class Depute implements Comparable<Depute>{
         }
         return 0;
     }
-
-    public static Depute getDeputee(int id){
-        return listDepute.stream().filter(depute -> depute.getId() == id)
-                .findFirst().get();
-    }
-
 }
