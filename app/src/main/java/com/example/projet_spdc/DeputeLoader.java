@@ -2,7 +2,6 @@ package com.example.projet_spdc;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 

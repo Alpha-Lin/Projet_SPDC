@@ -2,6 +2,7 @@ package com.example.projet_spdc;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.Image;
@@ -134,5 +135,11 @@ public class MP_Activity extends AppCompatActivity {
 
             votes.addView(vote);
         }
+    }
+
+    public void goToGroup(View view) {
+        Intent group_activity = new Intent(this, GroupeActivity.class);
+        group_activity.putExtra("groupe", Groupe.listeGroupe.indexOf(MP.getGroupe()));
+        startActivity(group_activity);
     }
 }

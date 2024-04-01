@@ -2,7 +2,6 @@ package com.example.projet_spdc;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -18,9 +17,7 @@ public class Common {
             URL url = new URL(param_url);
             connexion = (HttpURLConnection) url.openConnection();
             connexion.setRequestMethod("GET");
-            Log.d("getData", "before getStream");
             InputStream inputStream = connexion.getInputStream();
-            Log.d("getData", "getStream");
             InputStreamReader inputStreamReader = new
                     InputStreamReader(inputStream);
             BufferedReader bf = new BufferedReader(inputStreamReader);
@@ -34,7 +31,6 @@ public class Common {
         } catch (Exception e) {
             result = new StringBuilder("Erreur " + e.toString());
         }
-        Log.d("getData", "fin");
         return result.toString();
     }
 

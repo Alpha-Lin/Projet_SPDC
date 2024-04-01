@@ -25,7 +25,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onGroupeLoaded() {
         DeputeLoader mp = new DeputeLoader(this);
         mp.research();
-
         Button loadGroup = findViewById(R.id.loadGroup);
         loadGroup.setVisibility(View.VISIBLE);
     }

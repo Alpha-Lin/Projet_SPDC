@@ -1,7 +1,6 @@
 package com.example.projet_spdc;
 
 import android.graphics.Color;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -107,7 +106,6 @@ public class Groupe {
     //TODO
     public void confirmGroup(){
         listeGroupe.add(this);
-        Log.d("Groupe ajout", "fait");
     }
     //TODO
     public void setColor(String color){

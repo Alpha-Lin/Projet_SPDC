@@ -1,11 +1,9 @@
 package com.example.projet_spdc;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Depute {
+public class Depute implements Comparable<Depute>{
     static ArrayList<Depute> listDepute = new ArrayList<>();
     private ArrayList<Vote> listVotes = new ArrayList<>();
     int id;
@@ -298,7 +296,6 @@ public class Depute {
     public void findGroupAndAddIt(String accronymeGroupe){
         for(Groupe groupe: Groupe.listeGroupe){
             if(Objects.equals(groupe.acronyme, accronymeGroupe)){
-                Log.w("~~~~~~~~~~", groupe.acronyme);
                 groupe.addDepute(this);
 
                 this.groupe = groupe;
@@ -316,9 +313,19 @@ public class Depute {
 
     public void confirmDepute(){
         listDepute.add(this);
-        Log.d("MP ajout", "fait");
     }
 
     public Depute() {
+    }
+
+    @Override
+    public int compareTo(Depute o) {
+        if(this.getId() < o.getId()){
+            return -1;
+        }
+        if(this.getId() > o.getId()){
+            return 1;
+        }
+        return 0;
     }
 }
