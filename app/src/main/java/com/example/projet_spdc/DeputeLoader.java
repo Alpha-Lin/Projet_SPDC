@@ -2,7 +2,6 @@ package com.example.projet_spdc;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -41,9 +40,6 @@ public class DeputeLoader {
                         try {
                             decodeJson(data);
                             Depute.listDepute.sort((o1, o2) -> o1.compareTo(o2));
-                            for(int i = 0; i < Depute.listDepute.size(); i++){
-                                Log.w("test order of mp",""+i+" "+Depute.listDepute.get(i).getId());
-                            }
                         } catch (JSONException e) {
                             throw new RuntimeException(e);
                         }

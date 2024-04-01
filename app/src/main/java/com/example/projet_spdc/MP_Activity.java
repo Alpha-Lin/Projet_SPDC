@@ -139,8 +139,7 @@ public class MP_Activity extends AppCompatActivity {
 
     public void goToGroup(View view) {
         Intent group_activity = new Intent(this, GroupeActivity.class);
-        Log.w("go to groupe",MP.getGroupe().acronyme+" "+MP.getGroupe().id);
-        group_activity.putExtra("groupe", MP.getGroupe().getId() + 1);
+        group_activity.putExtra("groupe", Groupe.listeGroupe.indexOf(MP.getGroupe()));
         startActivity(group_activity);
     }
 }
