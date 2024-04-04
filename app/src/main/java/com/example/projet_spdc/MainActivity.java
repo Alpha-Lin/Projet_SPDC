@@ -2,21 +2,35 @@ package com.example.projet_spdc;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+import java.util.ArrayList;
+
+public class MainActivity extends AppCompatActivity {
+    private ListView listViewMPs;
+    private SearchView searchBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        listViewMPs = findViewById(R.id.listViewMPs);
+        searchBar = findViewById(R.id.search_bar);
+
+        setupSearchView();
 
         GroupeLoader gr = new GroupeLoader(this);
         gr.research();
@@ -25,26 +39,61 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onGroupeLoaded() {
         DeputeLoader mp = new DeputeLoader(this);
         mp.research();
-        Button loadGroup = findViewById(R.id.loadGroup);
-        loadGroup.setVisibility(View.VISIBLE);
     }
 
     public void onMPsLoaded(){
-        Button loadMP = findViewById(R.id.loadMP);
-        loadMP.setVisibility(View.VISIBLE);
+        TextView textLoading = findViewById(R.id.textLoading);
+        textLoading.setVisibility(View.GONE);
+        searchBar.setVisibility(View.VISIBLE);
+
+        ArrayList<String> listMPsGroups = new ArrayList<>();
+        for(Depute d : Depute.getListDepute())
+            listMPsGroups.add("(MP) " + d.getNom_de_famille() + " " + d.getPrenom());
+        for(Groupe g : Groupe.listeGroupe)
+            listMPsGroups.add("(GRP) " + g.getNom());
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listMPsGroups);
+        listViewMPs.setAdapter(adapter);
+
+        Context con = this;
+
+        listViewMPs.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                String[] infos = arg0.getAdapter().getItem(position).toString().split(" ");
+
+                if(infos[0].equals("(MP)")) {
+                    Depute d = Depute.getListDepute().stream().filter(depute -> depute.getNom_de_famille().equals(infos[1]) && depute.getPrenom().equals(infos[2])).findFirst().get();
+                    Intent intent_MP = new Intent(con, MP_Activity.class);
+                    intent_MP.putExtra("MP", d.getId() - 1);
+                    startActivity(intent_MP);
+                }else{
+                    Groupe g = Groupe.listeGroupe.stream().filter(groupe -> groupe.getNom().equals(arg0.getAdapter().getItem(position).toString().substring(6))).findFirst().get();
+                    Intent intent_Group = new Intent(con, GroupeActivity.class);
+                    intent_Group.putExtra("groupe", Groupe.listeGroupe.indexOf(g));
+                    startActivity(intent_Group);
+                }
+            }
+        });
     }
 
-    @Override
-    public void onClick(View v) {
-        if(v.getId() == R.id.loadMP) {
-            Intent intent_MP = new Intent(this, MP_Activity.class);
-            intent_MP.putExtra("MP", 0);
-            startActivity(intent_MP);
-        }
-        else if(v.getId() == R.id.loadGroup) {
-            Intent group_activity = new Intent(this, GroupeActivity.class);
-            group_activity.putExtra("groupe", 2);
-            startActivity(group_activity);
-        }
+    private void filter(String query) {
+        ArrayAdapter<String> adapter = (ArrayAdapter<String>) listViewMPs.getAdapter();
+        adapter.getFilter().filter(query);
+    }
+
+    private void setupSearchView() {
+        searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filter(newText);
+                return false;
+            }
+        });
     }
 }

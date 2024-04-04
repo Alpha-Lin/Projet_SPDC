@@ -5,19 +5,24 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/loadMP"
+    <TextView
+        android:id="@+id/textLoading"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="onClick"
-        android:text="load MP"
-        android:visibility="invisible" />
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="Chargement..." />
 
-    <Button
-        android:id="@+id/loadGroup"
+    <SearchView
+        android:id="@+id/search_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="onClick"
-        android:text="load Group"
-        android:visibility="invisible" />
+        android:queryHint="Guedj"
+        android:visibility="invisible">
+
+    </SearchView>
+
+    <ListView
+        android:id="@+id/listViewMPs"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>
