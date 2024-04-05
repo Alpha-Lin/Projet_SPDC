@@ -12,12 +12,14 @@
         android:id="@+id/nom_groupe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingStart="5dp"
         android:text="@string/groupename" />
 
     <TextView
         android:id="@+id/acronyme"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingStart="5dp"
         android:text="@string/acronyme" />
 
     <LinearLayout
@@ -29,6 +31,7 @@
             android:id="@+id/nb_mps"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingStart="5dp"
             android:text="@string/nombre_de_d_put_s" />
 
         <ListView
