@@ -40,10 +40,13 @@ public class MainActivity extends AppCompatActivity {
         isConnected = activeNetwork != null &&
                 activeNetwork.isConnectedOrConnecting();
         if (!isConnected) {
-            ReceiverConnection rc = new ReceiverConnection();
-            while(!isConnected){}
+            ReceiverConnection rc = new ReceiverConnection(this);
         }
+        else
+            connected();
+    }
 
+    public void connected(){
         setupSearchView();
 
         GroupeLoader gr = new GroupeLoader(this);

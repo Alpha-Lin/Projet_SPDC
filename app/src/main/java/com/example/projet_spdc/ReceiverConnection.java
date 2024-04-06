@@ -8,6 +8,11 @@ import android.net.NetworkInfo;
 import android.util.Log;
 
 public class ReceiverConnection extends BroadcastReceiver {
+    private MainActivity ct;
+
+    public ReceiverConnection(MainActivity ct){
+        this.ct = ct;
+    }
     @Override
     public void onReceive(Context context, Intent intent) {
         ConnectivityManager cm =
@@ -16,9 +21,7 @@ public class ReceiverConnection extends BroadcastReceiver {
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null &&
                 activeNetwork.isConnectedOrConnecting();
-        if (isConnected) {
-            //MainActivity.isConnected = true;
-            Log.d("Yep", "conn");
-        }
+        if (isConnected)
+            ct.connected();
     }
 }
