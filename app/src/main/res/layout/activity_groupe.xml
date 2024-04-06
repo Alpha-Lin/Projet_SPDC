@@ -19,7 +19,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/acronyme" />
-
+    <TextView
+        android:id="@+id/pres"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="goToPres"
+        />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

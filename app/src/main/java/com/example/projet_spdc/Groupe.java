@@ -17,6 +17,7 @@ public class Groupe {
     Color color;
     int order;
     String link;
+    Depute pres;
 
     ArrayList<Depute> listDepute = new ArrayList<>();
 
@@ -122,6 +123,14 @@ public class Groupe {
 
     public void addDepute(Depute d){
         listDepute.add(d);
+    }
+
+    public Depute getPres() {
+        return pres;
+    }
+
+    public void setPres(Depute pres) {
+        this.pres = pres;
     }
 
 

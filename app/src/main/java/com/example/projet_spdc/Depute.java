@@ -1,5 +1,10 @@
 package com.example.projet_spdc;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
+import android.content.Context;
+import android.content.Intent;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -26,6 +31,7 @@ public class Depute implements Comparable<Depute>{
     String url_nosdeputes;
     int nbmandat;
     String twitter;
+    String fonction;
 
     ArrayList<String> websites = new ArrayList<>();
     ArrayList<String> emails = new ArrayList<>();
@@ -327,5 +333,18 @@ public class Depute implements Comparable<Depute>{
             return 1;
         }
         return 0;
+    }
+
+    public String getFonction() {
+        return fonction;
+    }
+
+    public void setFonction(String fonction) {
+        this.fonction = fonction;
+    }
+    public void toMPPage( Context c) {
+        Intent intent_MP = new Intent(c, MP_Activity.class);
+        intent_MP.putExtra("MP", this.getId() - 1);
+        c.startActivity(intent_MP);
     }
 }

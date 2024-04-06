@@ -27,13 +27,15 @@ public class GroupeActivity extends AppCompatActivity {
         TextView nb = findViewById(R.id.nb_mps);
         TextView accro = findViewById(R.id.acronyme);
         ListView list = findViewById(R.id.listMPGroupe);
-
+        TextView pres = findViewById(R.id.pres);
+        pres.setText("Président du groupe: "+gr.pres.getPrenom()+ " "+gr.pres.getNom_de_famille());
         ArrayList<String> listMPs = new ArrayList<>();
         for(Depute d : gr.getListDepute()){
             listMPs.add(d.getNom_de_famille() + " " + d.getPrenom());
         }
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.layout_mps_group, listMPs);
         list.setAdapter(arrayAdapter);
+
 
         groupe.setText("Nom : "+ gr.getNom());
         accro.setText("Acronyme : " + gr.getAcronyme());
@@ -43,13 +45,15 @@ public class GroupeActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
                 Depute d = gr.listDepute.get(position);
-                Intent intent_MP = new Intent(c, MP_Activity.class);
-                intent_MP.putExtra("MP", d.getId() - 1);
-                startActivity(intent_MP);
+                d.toMPPage( c);
             }
         });
     }
 
 
 
+
+    public void goToPres(View view) {
+        gr.pres.toMPPage(view.getContext());
+    }
 }

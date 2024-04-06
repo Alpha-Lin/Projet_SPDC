@@ -78,6 +78,7 @@ public class DeputeLoader {
         depute.setGroupe(jsonObject.getString("groupe_sigle"));
         depute.setParti_financier(jsonObject.getString("parti_ratt_financier"));
 
+
         JSONArray sites_web = jsonObject.getJSONArray("sites_web");
         for(int i = 0; i < sites_web.length(); i++)
             depute.addWebsite(sites_web.getJSONObject(i).getString("site"));
