@@ -29,8 +29,8 @@ public class MainActivity extends AppCompatActivity {
     private SearchView searchBar;
     private Toolbar toolbar;
     private EditText toolbarEDT;
-
     private Button toolbarBTN;
+    private Button homeBTN;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +51,14 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        homeBTN = findViewById(R.id.home_tb);
+        homeBTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
         gr.research();
     }
 
