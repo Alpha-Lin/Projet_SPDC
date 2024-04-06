@@ -1,7 +1,10 @@
 package com.example.projet_spdc;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
