@@ -1,38 +1,56 @@
 package com.example.projet_spdc;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
+
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private ListView listViewMPs;
     private SearchView searchBar;
+    private Toolbar toolbar;
+    private EditText toolbarEDT;
+
+    private Button toolbarBTN;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         listViewMPs = findViewById(R.id.listViewMPs);
         searchBar = findViewById(R.id.search_bar);
-
+        toolbar.setTitle("");
         setupSearchView();
-
+        toolbarEDT = findViewById(R.id.toolbar_search);
         GroupeLoader gr = new GroupeLoader(this);
+        toolbarBTN = findViewById(R.id.toolbar_ok);
+        toolbarBTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         gr.research();
     }
 
@@ -95,5 +113,22 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.favBtn){
+
+        }else if(item.getItemId() == R.id.aproposBTN){
+
+        }
+
+        return true;
     }
 }
