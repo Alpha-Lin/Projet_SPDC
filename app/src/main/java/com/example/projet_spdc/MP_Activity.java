@@ -2,6 +2,7 @@ package com.example.projet_spdc;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,6 +10,10 @@ import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.SpannableString;
+import android.text.method.LinkMovementMethod;
+import android.text.style.URLSpan;
+import android.text.util.Linkify;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -16,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -78,17 +84,20 @@ public class MP_Activity extends AppCompatActivity {
         TextView parti = findViewById(R.id.Parti);
         TextView groupe_mp = findViewById(R.id.Groupe_MP);
         TextView circo_mp = findViewById(R.id.Circo_MP);
+        TextView dep = findViewById(R.id.depMP);
 
         nom_MP.setText("Nom : " + MP.getNom_de_famille() + " " + MP.getPrenom());
         debut_mandat.setText("Début de mandat : " + MP.getMandat_debut());
         parti.setText("Parti : " + MP.getParti_financier());
         groupe_mp.setText("Groupe : " + MP.getGroupe().getNom());
         circo_mp.setText("Circonscription : " + MP.getNum_circo() + "");
+        dep.setText("Département: "+MP.getDepartement());
 
         LinearLayout websites = findViewById(R.id.websites);
         for(int i = 0; i < MP.getWebsites().size(); i++){
             TextView website_text = new TextView(this);
             website_text.setText(MP.getWebsites().get(i));
+            website_text.setPadding(30, 0, 0, 0);
             websites.addView(website_text);
         }
 
@@ -96,6 +105,7 @@ public class MP_Activity extends AppCompatActivity {
         for(int i = 0; i < MP.getEmails().size(); i++){
             TextView email_text = new TextView(this);
             email_text.setText(MP.getEmails().get(i));
+            email_text.setPadding(30, 0, 0, 0);
             emails.addView(email_text);
         }
 
@@ -103,6 +113,7 @@ public class MP_Activity extends AppCompatActivity {
         for(int i = 0; i < MP.getAdresses().size(); i++){
             TextView adresse_text = new TextView(this);
             adresse_text.setText(MP.getAdresses().get(i));
+            adresse_text.setPadding(30, 0, 0, 0);
             adresses.addView(adresse_text);
         }
     }
@@ -125,9 +136,12 @@ public class MP_Activity extends AppCompatActivity {
             TextView date = new TextView(this);
             TextView position = new TextView(this);
 
-            intitule.setText("Intitulé : " + MP.getListVotes().get(i).getIntitutle());
+            intitule.setText("• Intitulé : " + MP.getListVotes().get(i).getIntitutle());
+            intitule.setPadding(5, 0, 0, 0);
             date.setText("Date : " + MP.getListVotes().get(i).getDate());
+            date.setPadding(30, 0, 0, 0);
             position.setText("Position : " + MP.getListVotes().get(i).getPosition());
+            position.setPadding(30, 0, 0, 0);
 
             vote.addView(intitule);
             vote.addView(date);
