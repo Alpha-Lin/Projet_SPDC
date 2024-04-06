@@ -16,15 +16,6 @@
         android:gravity="center"
         android:text="Chargement..." />
 
-    <SearchView
-        android:id="@+id/search_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:queryHint="Guedj"
-        android:visibility="invisible">
-
-    </SearchView>
-
     <ListView
         android:id="@+id/listViewMPs"
         android:layout_width="match_parent"

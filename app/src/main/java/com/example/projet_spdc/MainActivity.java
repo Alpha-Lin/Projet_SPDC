@@ -28,8 +28,6 @@ public class MainActivity extends AppCompatActivity {
     private ListView listViewMPs;
     private SearchView searchBar;
     private Toolbar toolbar;
-    private EditText toolbarEDT;
-    private Button toolbarBTN;
     private Button homeBTN;
 
     @Override
@@ -42,20 +40,20 @@ public class MainActivity extends AppCompatActivity {
         searchBar = findViewById(R.id.search_bar);
         toolbar.setTitle("");
         setupSearchView();
-        toolbarEDT = findViewById(R.id.toolbar_search);
         GroupeLoader gr = new GroupeLoader(this);
-        toolbarBTN = findViewById(R.id.toolbar_ok);
-        toolbarBTN.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        });
+        Context ct = this;
+
         homeBTN = findViewById(R.id.home_tb);
         homeBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /*Intent i= new Intent(ct, MainActivity.class);
+                startActivity(i);
 
+                ou
+
+                finish();*/
             }
         });
 
