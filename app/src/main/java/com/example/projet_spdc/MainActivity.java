@@ -25,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
     private SearchView searchBar;
     public static boolean isConnected;
 
+    private ReceiverConnection rc;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,13 +42,16 @@ public class MainActivity extends AppCompatActivity {
         isConnected = activeNetwork != null &&
                 activeNetwork.isConnectedOrConnecting();
         if (!isConnected) {
-            ReceiverConnection rc = new ReceiverConnection(this);
+            rc = new ReceiverConnection(this);
         }
         else
             connected();
     }
 
     public void connected(){
+        if (rc != null)
+            unregisterReceiver(rc);
+
         setupSearchView();
 
         GroupeLoader gr = new GroupeLoader(this);
