@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         isConnected = activeNetwork != null &&
                 activeNetwork.isConnectedOrConnecting();
         if (!isConnected) {
+            ReceiverConnection rc = new ReceiverConnection();
             while(!isConnected){}
         }
 
