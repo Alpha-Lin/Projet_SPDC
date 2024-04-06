@@ -67,6 +67,13 @@
                     android:onClick="goToGroup"
                     android:paddingStart="5dp"
                     android:text="Groupe : " />
+                <TextView
+                    android:id="@+id/depMP"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingStart="5dp"
+                    android:text="Dep : " />
 
                 <TextView
                     android:id="@+id/Circo_MP"

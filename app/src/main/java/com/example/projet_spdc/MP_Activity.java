@@ -84,12 +84,14 @@ public class MP_Activity extends AppCompatActivity {
         TextView parti = findViewById(R.id.Parti);
         TextView groupe_mp = findViewById(R.id.Groupe_MP);
         TextView circo_mp = findViewById(R.id.Circo_MP);
+        TextView dep = findViewById(R.id.depMP);
 
         nom_MP.setText("Nom : " + MP.getNom_de_famille() + " " + MP.getPrenom());
         debut_mandat.setText("Début de mandat : " + MP.getMandat_debut());
         parti.setText("Parti : " + MP.getParti_financier());
         groupe_mp.setText("Groupe : " + MP.getGroupe().getNom());
         circo_mp.setText("Circonscription : " + MP.getNum_circo() + "");
+        dep.setText("Département: "+MP.getDepartement());
 
         LinearLayout websites = findViewById(R.id.websites);
         for(int i = 0; i < MP.getWebsites().size(); i++){
