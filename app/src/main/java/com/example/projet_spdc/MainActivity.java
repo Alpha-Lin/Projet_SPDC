@@ -130,9 +130,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.favBtn){
-
+            Intent favIntent = new Intent(this, FavoriActivity.class);
+            startActivity(favIntent);
         }else if(item.getItemId() == R.id.aproposBTN){
-
+            /*Intent aboutIntent = new Intent(this, AboutActivity.class);
+            startActivity(aboutIntent);*/
         }
 
         return true;

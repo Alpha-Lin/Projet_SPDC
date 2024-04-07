@@ -21,38 +21,44 @@ import android.text.util.Linkify;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class MP_Activity extends AppCompatActivity {
+public class MP_Activity extends AppCompatActivity implements View.OnClickListener {
     Depute MP;
     ArrayList<String> listPhones = new ArrayList<>();
 
     ArrayList<Button> listButtonCall = new ArrayList<>();
     LinearLayout ll;
 
+    Button favMPButtonAdd;
+    Button favMPButtonDel;
+    DBHandler handler;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mp);
+
+        favMPButtonAdd = findViewById(R.id.favMPButtonAdd);
+        favMPButtonDel = findViewById(R.id.favMPButtonDel);
+
+        handler = new DBHandler(this);
 
         int id_mp = getIntent().getIntExtra("MP", -1);
 
@@ -60,6 +66,11 @@ public class MP_Activity extends AppCompatActivity {
             Log.d("donnée mal transmise", "");
 
         MP = Depute.getListDepute().get(id_mp);
+
+        if(handler.selectAllFavMP().contains(MP))
+            favMPButtonDel.setVisibility(View.VISIBLE);
+        else
+            favMPButtonAdd.setVisibility(View.VISIBLE);
 
         // Pour charger la photo de profile et les votes
         ExecutorService executor = Executors.newSingleThreadExecutor();
@@ -213,10 +224,24 @@ public class MP_Activity extends AppCompatActivity {
         group_activity.putExtra("groupe", Groupe.listeGroupe.indexOf(MP.getGroupe()));
         startActivity(group_activity);
     }
+
     public void callMP(String phone){
         Intent i_call = new Intent(Intent.ACTION_DIAL);
         i_call.setData(Uri.parse("tel:" + phone));
         startActivity(i_call);
     }
 
+    @Override
+    public void onClick(View v) {
+        if(v.getId() == R.id.favMPButtonAdd) {
+            handler.insertFavMP(MP.getId());
+            favMPButtonAdd.setVisibility(View.GONE);
+            favMPButtonDel.setVisibility(View.VISIBLE);
+        }
+        else {
+            handler.deleteFavMP(MP.getId());
+            favMPButtonAdd.setVisibility(View.VISIBLE);
+            favMPButtonDel.setVisibility(View.GONE);
+        }
+    }
 }

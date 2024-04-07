@@ -22,6 +22,24 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="1" />
 
+            <Button
+                android:id="@+id/favMPButtonAdd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="onClick"
+                android:text="Ajouter aux favoris"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/favMPButtonDel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="onClick"
+                android:text="Retirer des favoris"
+                android:visibility="gone" />
+
             <View
                 android:id="@+id/viewSeparate1"
                 android:layout_width="match_parent"
