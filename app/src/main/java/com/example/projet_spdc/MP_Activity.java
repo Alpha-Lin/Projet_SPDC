@@ -141,6 +141,7 @@ public class MP_Activity extends AppCompatActivity  {
             String[] splited = MP.getAdresses().get(i).split("Téléphone : ");
             if(splited.length > 1){
                 String tel = splited[1];
+                adresse_text.setText(splited[0]);
                 tel = tel.replace("."," ");
                 listPhones.add(tel);
             }
