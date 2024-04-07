@@ -8,6 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -23,22 +24,31 @@ public class GroupeLoader {
     public void research() {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Handler handler = new Handler(Looper.getMainLooper());
+        GroupeLoader gr  =this;
         executor.execute(new Runnable() {
             @Override
             public void run() {
-                String data = Common.getDataFromHTTP(param);
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            decodeJson(data);
-                        } catch (JSONException e) {
-                            throw new RuntimeException(e);
+                String data = null;
+                try {
+                    data = Common.getDataFromHTTP(param);
+                    String finalData = data;
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                decodeJson(finalData);
+                            } catch (JSONException e) {
+                                throw new RuntimeException(e);
+                            }
+                            Common.groupLoaded = true;
+                            mainActivity.onGroupeLoaded();
                         }
+                    });
+                } catch (IOException e) {
+                    Common.hasInternet = false;
+                    MainActivity.getInternet(gr);
+                }
 
-                        mainActivity.onGroupeLoaded();
-                    }
-                });
             }
         });
     }

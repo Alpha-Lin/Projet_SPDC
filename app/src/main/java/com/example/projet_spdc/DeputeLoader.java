@@ -21,10 +21,12 @@ import java.util.concurrent.Executors;
 public class DeputeLoader {
     String param;
     MainActivity mainActivity;
+    GroupeLoader gr;
 
-    public DeputeLoader(MainActivity mainActivity){
+    public DeputeLoader(MainActivity mainActivity, GroupeLoader gr){
         param = "https://www.nosdeputes.fr/deputes/json";
         this.mainActivity = mainActivity;
+        this.gr = gr;
     }
 
     public void research() {
@@ -33,19 +35,27 @@ public class DeputeLoader {
         executor.execute(new Runnable() {
             @Override
             public void run() {
-                String data = Common.getDataFromHTTP(param);
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            decodeJson(data);
-                        } catch (JSONException e) {
-                            throw new RuntimeException(e);
+                String data = null;
+                try {
+                    data = Common.getDataFromHTTP(param);
+                    String finalData = data;
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                decodeJson(finalData);
+                                Common.mpLoaded = true;
+                            } catch (JSONException e) {
+                                throw new RuntimeException(e);
+                            }
+                            mainActivity.onMPsLoaded();
                         }
+                    });
+                } catch (IOException e) {
+                    Common.hasInternet = false;
+                    MainActivity.getInternet(gr);
+                }
 
-                        mainActivity.onMPsLoaded();
-                    }
-                });
             }
         });
     }

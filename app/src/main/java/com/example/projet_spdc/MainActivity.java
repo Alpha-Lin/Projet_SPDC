@@ -17,6 +17,8 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     private ListView listViewMPs;
     private SearchView searchBar;
+    public GroupeLoader gr;
+    public DeputeLoader dl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,15 +27,20 @@ public class MainActivity extends AppCompatActivity {
 
         listViewMPs = findViewById(R.id.listViewMPs);
         searchBar = findViewById(R.id.search_bar);
+        Common.mainActivity = this;
 
-        setupSearchView();
+        try {
+            setupSearchView();
+            gr = new GroupeLoader(this);
+            gr.research();
+        }catch (Exception e){
 
-        GroupeLoader gr = new GroupeLoader(this);
-        gr.research();
+        }
+
     }
 
     public void onGroupeLoaded() {
-        DeputeLoader mp = new DeputeLoader(this);
+        DeputeLoader mp = new DeputeLoader(this,gr);
         mp.research();
     }
 
@@ -91,5 +98,21 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+    public static void getInternet(GroupeLoader gr){
+
+    }
+    public static void getInternet(MP_Activity mp){
+
+    }
+    public static void gotBackInternet(){
+        if(Common.groupLoaded){
+            Common.mainActivity.gr = new GroupeLoader(Common.mainActivity);
+            Common.mainActivity.gr.research();
+        }else if(Common.mpLoaded){
+            Common.mainActivity.onGroupeLoaded();
+        }else{
+
+        }
     }
 }

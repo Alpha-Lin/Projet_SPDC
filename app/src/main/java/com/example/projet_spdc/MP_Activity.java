@@ -29,6 +29,7 @@ import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -44,7 +45,7 @@ public class MP_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mp);
-
+        MP_Activity mpActivity = this;
         int id_mp = getIntent().getIntExtra("MP", -1);
 
         if(id_mp == -1)
@@ -52,32 +53,13 @@ public class MP_Activity extends AppCompatActivity {
 
         MP = Depute.getListDepute().get(id_mp);
 
+        loadInfo(mpActivity);
+    }
+
+    public void loadInfo(MP_Activity mpActivity) {
         // Pour charger la photo de profile et les votes
         ExecutorService executor = Executors.newSingleThreadExecutor();
-
-        Handler handler = new Handler(Looper.getMainLooper());
-
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                Bitmap data_photo = Common.getImageFromHTTP("https://nosdeputes.fr/depute/photo/" + MP.getSlug() + "/200");
-                String data_votes = Common.getDataFromHTTP("https://nosdeputes.fr/" + MP.getSlug() + "/votes/json");
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        ImageView photo_MP = findViewById(R.id.Photo_MP);
-                        photo_MP.setImageBitmap(data_photo);
-
-                        try {
-                            decodeJSONVotes(data_votes);
-                        } catch (JSONException e) {
-                            throw new RuntimeException(e);
-                        }
-                        onVotesLoaded();
-                    }
-                });
-            }
-        });
+        ImageView photo_MP = findViewById(R.id.Photo_MP);
 
         TextView nom_MP = findViewById(R.id.Nom_MP);
         TextView debut_mandat = findViewById(R.id.Debut_mandat);
@@ -85,7 +67,7 @@ public class MP_Activity extends AppCompatActivity {
         TextView groupe_mp = findViewById(R.id.Groupe_MP);
         TextView circo_mp = findViewById(R.id.Circo_MP);
         TextView dep = findViewById(R.id.depMP);
-
+        Handler handler = new Handler(Looper.getMainLooper());
         nom_MP.setText("Nom : " + MP.getNom_de_famille() + " " + MP.getPrenom());
         debut_mandat.setText("Début de mandat : " + MP.getMandat_debut());
         parti.setText("Parti : " + MP.getParti_financier());
@@ -93,29 +75,57 @@ public class MP_Activity extends AppCompatActivity {
         circo_mp.setText("Circonscription : " + MP.getNum_circo() + "");
         dep.setText("Département: "+MP.getDepartement());
 
-        LinearLayout websites = findViewById(R.id.websites);
-        for(int i = 0; i < MP.getWebsites().size(); i++){
-            TextView website_text = new TextView(this);
-            website_text.setText(MP.getWebsites().get(i));
-            website_text.setPadding(30, 0, 0, 0);
-            websites.addView(website_text);
-        }
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                Bitmap data_photo = Common.getImageFromHTTP("https://nosdeputes.fr/depute/photo/" + MP.getSlug() + "/200");
+                String data_votes = null;
+                LinearLayout websites = findViewById(R.id.websites);
+                for(int i = 0; i < MP.getWebsites().size(); i++){
+                    TextView website_text = new TextView(mpActivity);
+                    website_text.setText(MP.getWebsites().get(i));
+                    website_text.setPadding(30, 0, 0, 0);
+                    websites.addView(website_text);
+                }
 
-        LinearLayout emails = findViewById(R.id.emails);
-        for(int i = 0; i < MP.getEmails().size(); i++){
-            TextView email_text = new TextView(this);
-            email_text.setText(MP.getEmails().get(i));
-            email_text.setPadding(30, 0, 0, 0);
-            emails.addView(email_text);
-        }
+                LinearLayout emails = findViewById(R.id.emails);
+                for(int i = 0; i < MP.getEmails().size(); i++){
+                    TextView email_text = new TextView(mpActivity);
+                    email_text.setText(MP.getEmails().get(i));
+                    email_text.setPadding(30, 0, 0, 0);
+                    emails.addView(email_text);
+                }
 
-        LinearLayout adresses = findViewById(R.id.adresses);
-        for(int i = 0; i < MP.getAdresses().size(); i++){
-            TextView adresse_text = new TextView(this);
-            adresse_text.setText(MP.getAdresses().get(i));
-            adresse_text.setPadding(30, 0, 0, 0);
-            adresses.addView(adresse_text);
-        }
+                LinearLayout adresses = findViewById(R.id.adresses);
+                for(int i = 0; i < MP.getAdresses().size(); i++){
+                    TextView adresse_text = new TextView(mpActivity);
+                    adresse_text.setText(MP.getAdresses().get(i));
+                    adresse_text.setPadding(30, 0, 0, 0);
+                    adresses.addView(adresse_text);
+                }
+                try {
+                    data_votes = Common.getDataFromHTTP("https://nosdeputes.fr/" + MP.getSlug() + "/votes/json");
+                    String finalData_votes = data_votes;
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            photo_MP.setImageBitmap(data_photo);
+                            try {
+                                decodeJSONVotes(finalData_votes);
+                            } catch (JSONException e) {
+                                //TODO write something instead of votes
+                                Common.hasInternet = false;
+                                MainActivity.getInternet(mpActivity);
+                            }
+                            onVotesLoaded();
+                        }
+                    });
+                } catch (IOException e) {
+                    //TODO Load a fake img or do sthm like that
+                }
+
+            }
+        });
     }
 
     public void decodeJSONVotes(String data) throws JSONException {
