@@ -6,4 +6,7 @@
     <string name="groupename">Groupe:</string>
     <string name="acronyme">Acronyme:</string>
     <string name="nombre_de_d_put_s">Nombre de députés</string>
+    <string name="favoris">Favoris:</string>
+    <string name="d_put_s_favoris">Députés favoris</string>
+    <string name="groupes_favoris">Groupes favoris</string>
 </resources>
