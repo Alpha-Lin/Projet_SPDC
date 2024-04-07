@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -28,19 +29,21 @@ public class MainActivity extends AppCompatActivity {
         listViewMPs = findViewById(R.id.listViewMPs);
         searchBar = findViewById(R.id.search_bar);
         Common.mainActivity = this;
+        setupSearchView();
 
         try {
-            setupSearchView();
             gr = new GroupeLoader(this);
             gr.research();
         }catch (Exception e){
-
+            Toast.makeText(this, "ya problem",
+                    Toast.LENGTH_LONG).show();
         }
 
     }
 
     public void onGroupeLoaded() {
         DeputeLoader mp = new DeputeLoader(this,gr);
+        this.dl = mp;
         mp.research();
     }
 
@@ -115,4 +118,5 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
+
 }
