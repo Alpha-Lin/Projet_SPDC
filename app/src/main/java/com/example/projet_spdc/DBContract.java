@@ -10,9 +10,4 @@ public class DBContract {
         public static final String TABLE_NAME = "favGroup";
         public static final String _ID = "id";
     }
-
-    public static class favLaw {
-        public static final String TABLE_NAME = "favLaw";
-        public static final String _ID = "id";
-    }
 }

@@ -2,48 +2,40 @@ package com.example.projet_spdc;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.text.SpannableString;
-import android.text.method.LinkMovementMethod;
-import android.text.style.URLSpan;
-import android.text.util.Linkify;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class MP_Activity extends AppCompatActivity {
+public class MP_Activity extends AppCompatActivity implements View.OnClickListener {
     Depute MP;
+    Button favMPButtonAdd;
+    Button favMPButtonDel;
+    DBHandler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mp);
+
+        favMPButtonAdd = findViewById(R.id.favMPButtonAdd);
+        favMPButtonDel = findViewById(R.id.favMPButtonDel);
+
+        handler = new DBHandler(this);
 
         int id_mp = getIntent().getIntExtra("MP", -1);
 
@@ -51,6 +43,11 @@ public class MP_Activity extends AppCompatActivity {
             Log.d("donnée mal transmise", "");
 
         MP = Depute.getListDepute().get(id_mp);
+
+        if(handler.selectAllFavMP().contains(MP))
+            favMPButtonDel.setVisibility(View.VISIBLE);
+        else
+            favMPButtonAdd.setVisibility(View.VISIBLE);
 
         // Pour charger la photo de profile et les votes
         ExecutorService executor = Executors.newSingleThreadExecutor();
@@ -155,5 +152,19 @@ public class MP_Activity extends AppCompatActivity {
         Intent group_activity = new Intent(this, GroupeActivity.class);
         group_activity.putExtra("groupe", Groupe.listeGroupe.indexOf(MP.getGroupe()));
         startActivity(group_activity);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(v.getId() == R.id.favMPButtonAdd) {
+            handler.insertFavMP(MP.getId());
+            favMPButtonAdd.setVisibility(View.GONE);
+            favMPButtonDel.setVisibility(View.VISIBLE);
+        }
+        else {
+            handler.deleteFavMP(MP.getId());
+            favMPButtonAdd.setVisibility(View.VISIBLE);
+            favMPButtonDel.setVisibility(View.GONE);
+        }
     }
 }
