@@ -15,61 +15,91 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <ImageView
+                android:id="@+id/Photo_MP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/favMPButtonAdd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="onClick"
+                android:text="Ajouter aux favoris"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/favMPButtonDel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="onClick"
+                android:text="Retirer des favoris"
+                android:visibility="gone" />
+
+            <View
+                android:id="@+id/viewSeparate1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/black" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/Photo_MP"
+                <TextView
+                    android:id="@+id/Nom_MP"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:paddingStart="5dp"
+                    android:text="Nom : " />
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/Debut_mandat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:paddingStart="5dp"
+                    android:text="Début mandat : " />
 
-                    <TextView
-                        android:id="@+id/Nom_MP"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Nom : " />
+                <TextView
+                    android:id="@+id/Parti"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingStart="5dp"
+                    android:text="Parti : " />
 
-                    <TextView
-                        android:id="@+id/Debut_mandat"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Début mandat : " />
+                <TextView
+                    android:id="@+id/Groupe_MP"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:onClick="goToGroup"
+                    android:paddingStart="5dp"
+                    android:text="Groupe : " />
+                <TextView
+                    android:id="@+id/depMP"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingStart="5dp"
+                    android:text="Dep : " />
 
-                    <TextView
-                        android:id="@+id/Parti"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Parti : " />
-
-                    <TextView
-                        android:id="@+id/Groupe_MP"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:onClick="goToGroup"
-                        android:clickable="true"
-                        android:layout_weight="1"
-                        android:text="Groupe : " />
-
-                    <TextView
-                        android:id="@+id/Circo_MP"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Circo : " />
-
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/Circo_MP"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingStart="5dp"
+                    android:text="Circo : " />
 
             </LinearLayout>
 
@@ -80,29 +110,25 @@
                 android:background="@android:color/black" />
 
 
-
-
-            <View
-                android:id="@+id/viewSeparate3"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@android:color/black" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:id="@+id/llcontact">
 
                 <TextView
                     android:id="@+id/Contact"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Contact" />
+                    android:gravity="center_horizontal"
+                    android:text="Contacts"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Sites web" />
+                    android:paddingStart="5dp"
+                    android:text="• Sites web :" />
 
                 <LinearLayout
                     android:id="@+id/websites"
@@ -113,7 +139,8 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Emails" />
+                    android:paddingStart="5dp"
+                    android:text="• Emails :" />
 
                 <LinearLayout
                     android:id="@+id/emails"
@@ -124,7 +151,8 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Adresses" />
+                    android:paddingStart="5dp"
+                    android:text="• Adresses :" />
 
                 <LinearLayout
                     android:id="@+id/adresses"
@@ -135,6 +163,13 @@
                 </LinearLayout>
 
             </LinearLayout>
+
+            <View
+                android:id="@+id/viewSeparate3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/black" />
+
             <LinearLayout
                 android:id="@+id/votes"
                 android:layout_width="match_parent"
@@ -144,7 +179,9 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Votes" />
+                    android:gravity="center_horizontal"
+                    android:text="Votes"
+                    android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

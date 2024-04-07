@@ -1,6 +1,8 @@
 package com.example.projet_spdc;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -10,15 +12,20 @@ import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
+
 
 import java.util.ArrayList;
 
@@ -28,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     public static boolean isConnected;
 
     private BroadcastReceiver br;
+    private Toolbar toolbar;
+    private Button homeBTN;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,9 +79,31 @@ public class MainActivity extends AppCompatActivity {
         if (br != null)
             unregisterReceiver(br);
 
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        listViewMPs = findViewById(R.id.listViewMPs);
+        searchBar = findViewById(R.id.search_bar);
+        toolbar.setTitle("");
+      
         setupSearchView();
-
+      
         GroupeLoader gr = new GroupeLoader(this);
+
+        Context ct = this;
+
+        homeBTN = findViewById(R.id.home_tb);
+        homeBTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /*Intent i= new Intent(ct, MainActivity.class);
+                startActivity(i);
+
+                ou
+
+                finish();*/
+            }
+        });
+
         gr.research();
     }
 
@@ -135,5 +166,24 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.favBtn){
+            Intent favIntent = new Intent(this, FavoriActivity.class);
+            startActivity(favIntent);
+        }else if(item.getItemId() == R.id.aproposBTN){
+            /*Intent aboutIntent = new Intent(this, AboutActivity.class);
+            startActivity(aboutIntent);*/
+        }
+
+        return true;
     }
 }

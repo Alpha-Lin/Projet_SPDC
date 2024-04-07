@@ -4,6 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
+    <include layout="@layout/toolbar_layout"
+        android:id="@+id/toolbar"/>
+
+
 
     <TextView
         android:id="@+id/textLoading"
@@ -11,15 +15,6 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:text="Chargement..." />
-
-    <SearchView
-        android:id="@+id/search_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:queryHint="Guedj"
-        android:visibility="invisible">
-
-    </SearchView>
 
     <ListView
         android:id="@+id/listViewMPs"
