@@ -27,5 +27,7 @@ public class WIFIReceiver extends BroadcastReceiver {
                 Toast.makeText(context, "Déconnecté du réseau", Toast.LENGTH_LONG).show();
             }
         }
+        Log.w("wifistatut","ni l'un ni l'autre");
+
     }
 }
