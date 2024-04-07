@@ -6,6 +6,5 @@
     android:padding="10dip"
     android:textSize="16dip"
     android:textStyle="bold" >
-    <include layout="@layout/toolbar_layout"
-        android:id="@+id/toolbar"/>
+
 </TextView>

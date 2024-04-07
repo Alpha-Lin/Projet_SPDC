@@ -238,8 +238,10 @@ public class MP_Activity extends AppCompatActivity  {
     }
 
     public void goToGroup(View view) {
+
         Intent group_activity = new Intent(this, GroupeActivity.class);
         group_activity.putExtra("groupe", Groupe.listeGroupe.indexOf(MP.getGroupe()));
+        Log.w("Groupe.listeGroupe.indexOf(MP.getGroupe())",""+Groupe.listeGroupe.indexOf(MP.getGroupe()));
         startActivity(group_activity);
     }
 
