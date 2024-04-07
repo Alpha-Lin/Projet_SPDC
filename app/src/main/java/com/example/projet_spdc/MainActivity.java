@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private SearchView searchBar;
     public static boolean isConnected;
 
-    private ReceiverConnection rc;
+    private BroadcastReceiver br;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         IntentFilter intentFilter = new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE");
 
-        BroadcastReceiver br = new BroadcastReceiver() {
+        MainActivity ma = this;
+
+        br = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 Log.w("miamoooooooooooo","test");
@@ -60,16 +62,13 @@ public class MainActivity extends AppCompatActivity {
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         isConnected = activeNetwork != null &&
                 activeNetwork.isConnectedOrConnecting();
-        if (!isConnected) {
-            rc = new ReceiverConnection(this);
-        }
-        else
+        if (isConnected)
             connected();
     }
 
     public void connected(){
-        if (rc != null)
-            unregisterReceiver(rc);
+        if (br != null)
+            unregisterReceiver(br);
 
         setupSearchView();
 
