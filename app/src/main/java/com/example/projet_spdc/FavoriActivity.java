@@ -1,14 +1,18 @@
 package com.example.projet_spdc;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 
@@ -17,7 +21,11 @@ import java.util.List;
 public class FavoriActivity extends AppCompatActivity {
     LinearLayout depLayout;
     LinearLayout groupLayout;
-    Toolbar toolbar;
+
+
+    private SearchView searchBar;
+    private Toolbar toolbar;
+    private Button homeBTN;
 
     DBHandler handler;
     @Override
@@ -25,9 +33,14 @@ public class FavoriActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favori);
         depLayout = findViewById(R.id.layoutForFavDep);
-        groupLayout = findViewById(R.id.layoutForFavGroup);
+
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        searchBar = findViewById(R.id.search_bar);
+        toolbar.setTitle("");
+
+        groupLayout = findViewById(R.id.layoutForFavGroup);
+
         FavoriActivity fav = this;
 
         handler = new DBHandler(this);
@@ -86,5 +99,28 @@ public class FavoriActivity extends AppCompatActivity {
             l.addView(b);
             groupLayout.addView(l);
         }
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.favBtn){
+            Intent favIntent = new Intent(this, FavoriActivity.class);
+            startActivity(favIntent);
+        }else if(item.getItemId() == R.id.aproposBTN){
+            /*Intent aboutIntent = new Intent(this, AboutActivity.class);
+            startActivity(aboutIntent);*/
+        }
+
+        return true;
+    }
+
+    public void goToHome(){
+        Intent favIntent = new Intent(this, MainActivity.class);
+        startActivity(favIntent);
     }
 }

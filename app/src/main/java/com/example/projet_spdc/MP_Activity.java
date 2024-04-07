@@ -1,6 +1,8 @@
 package com.example.projet_spdc;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -19,6 +21,8 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.URLSpan;
 import android.text.util.Linkify;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 
@@ -30,6 +34,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -51,11 +56,22 @@ public class MP_Activity extends AppCompatActivity  {
     Button favMPButtonDel;
     DBHandler handler;
 
+    private SearchView searchBar;
+    private Toolbar toolbar;
+    private Button homeBTN;
+
+    public void goToHome(){
+        Intent favIntent = new Intent(this, MainActivity.class);
+        startActivity(favIntent);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mp);
-
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        searchBar = findViewById(R.id.search_bar);
+        toolbar.setTitle("");
         favMPButtonAdd = findViewById(R.id.favMPButtonAdd);
         favMPButtonDel = findViewById(R.id.favMPButtonDel);
 
@@ -248,5 +264,23 @@ public class MP_Activity extends AppCompatActivity  {
             favMPButtonAdd.setVisibility(View.VISIBLE);
             favMPButtonDel.setVisibility(View.GONE);
         }
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.favBtn){
+            Intent favIntent = new Intent(this, FavoriActivity.class);
+            startActivity(favIntent);
+        }else if(item.getItemId() == R.id.aproposBTN){
+            /*Intent aboutIntent = new Intent(this, AboutActivity.class);
+            startActivity(aboutIntent);*/
+        }
+
+        return true;
     }
 }
