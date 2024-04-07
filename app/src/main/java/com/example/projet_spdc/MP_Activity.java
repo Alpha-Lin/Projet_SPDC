@@ -36,6 +36,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -234,7 +235,7 @@ public class MP_Activity extends AppCompatActivity  {
     }
 
     
-    public void onClick(View v) {
+    public void onClickMP(View v) {
 		Log.w("ajout de mp",""+v.getId());
         if(v.getId() == R.id.favMPButtonAdd) {
             handler.insertFavMP(MP.getId());
