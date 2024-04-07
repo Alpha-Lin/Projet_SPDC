@@ -21,7 +21,7 @@ import org.json.JSONObject;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class MP_Activity extends AppCompatActivity implements View.OnClickListener {
+public class MP_Activity extends AppCompatActivity  {
     Depute MP;
     Button favMPButtonAdd;
     Button favMPButtonDel;
@@ -154,8 +154,8 @@ public class MP_Activity extends AppCompatActivity implements View.OnClickListen
         startActivity(group_activity);
     }
 
-    @Override
-    public void onClick(View v) {
+    public void onClickMP(View v) {
+        Log.w("ajout de mp",""+v.getId());
         if(v.getId() == R.id.favMPButtonAdd) {
             handler.insertFavMP(MP.getId());
             favMPButtonAdd.setVisibility(View.GONE);

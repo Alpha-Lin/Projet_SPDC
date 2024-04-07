@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".FavoriActivity">
-
+    <include layout="@layout/toolbar_layout"
+        android:id="@+id/toolbar"/>
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
