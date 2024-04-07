@@ -2,9 +2,14 @@ package com.example.projet_spdc;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.NetworkInfo;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
     private ListView listViewMPs;
@@ -30,6 +36,33 @@ public class MainActivity extends AppCompatActivity {
         searchBar = findViewById(R.id.search_bar);
         Common.mainActivity = this;
         setupSearchView();
+
+
+        IntentFilter intentFilter = new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE");
+
+        BroadcastReceiver receiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                if (Objects.equals(intent.getAction(), WifiManager.NETWORK_STATE_CHANGED_ACTION)) {
+                    NetworkInfo networkInfo = intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
+                    if (networkInfo.isAvailable()) {
+                        Common.hasInternet = true;
+                        Log.w("wifistatut","connexted");
+                        Toast.makeText(context, "Connecté au réseau", Toast.LENGTH_LONG).show();
+                        MainActivity.gotBackInternet();
+                    } else {
+                        Common.hasInternet = false;
+                        Log.w("wifistatut","not connected");
+
+                        Toast.makeText(context, "Déconnecté du réseau", Toast.LENGTH_LONG).show();
+                    }
+                }
+                Log.d("wifi", "Service state changed");
+            }
+        };
+
+        registerReceiver(receiver, intentFilter);
+
 
         try {
             gr = new GroupeLoader(this);
