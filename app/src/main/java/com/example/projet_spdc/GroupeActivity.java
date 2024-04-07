@@ -5,23 +5,40 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class GroupeActivity extends AppCompatActivity {
+public class GroupeActivity extends AppCompatActivity implements View.OnClickListener {
     Groupe gr;
+
+    DBHandler handler;
+
+    Button favGroupButtonAdd;
+    Button favGroupButtonDel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_groupe);
 
+        handler = new DBHandler(this);
+
+        favGroupButtonAdd = findViewById(R.id.favGroupButtonAdd);
+        favGroupButtonDel = findViewById(R.id.favGroupButtonDel);
+
         gr = Groupe.listeGroupe.get(getIntent().getIntExtra("groupe",0));
+
+        if(handler.selectAllFavGroup().contains(gr))
+            favGroupButtonDel.setVisibility(View.VISIBLE);
+        else
+            favGroupButtonAdd.setVisibility(View.VISIBLE);
 
         TextView groupe = findViewById(R.id.nom_groupe);
         TextView nb = findViewById(R.id.nb_mps);
@@ -50,6 +67,19 @@ public class GroupeActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onClick(View v) {
+        Log.d("Mon id gr : ", gr.getId() +"");
 
-
+        if(v.getId() == R.id.favGroupButtonAdd) {
+            handler.insertFavGroup(gr.getId());
+            favGroupButtonAdd.setVisibility(View.GONE);
+            favGroupButtonDel.setVisibility(View.VISIBLE);
+        }
+        else {
+            handler.deleteFavGroup(gr.getId());
+            favGroupButtonAdd.setVisibility(View.VISIBLE);
+            favGroupButtonDel.setVisibility(View.GONE);
+        }
+    }
 }
