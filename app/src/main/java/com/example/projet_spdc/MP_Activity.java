@@ -74,35 +74,34 @@ public class MP_Activity extends AppCompatActivity {
         groupe_mp.setText("Groupe : " + MP.getGroupe().getNom());
         circo_mp.setText("Circonscription : " + MP.getNum_circo() + "");
         dep.setText("Département: "+MP.getDepartement());
+        LinearLayout websites = findViewById(R.id.websites);
+        for(int i = 0; i < MP.getWebsites().size(); i++){
+            TextView website_text = new TextView(mpActivity);
+            website_text.setText(MP.getWebsites().get(i));
+            website_text.setPadding(30, 0, 0, 0);
+            websites.addView(website_text);
+        }
 
+        LinearLayout emails = findViewById(R.id.emails);
+        for(int i = 0; i < MP.getEmails().size(); i++){
+            TextView email_text = new TextView(mpActivity);
+            email_text.setText(MP.getEmails().get(i));
+            email_text.setPadding(30, 0, 0, 0);
+            emails.addView(email_text);
+        }
+
+        LinearLayout adresses = findViewById(R.id.adresses);
+        for(int i = 0; i < MP.getAdresses().size(); i++){
+            TextView adresse_text = new TextView(mpActivity);
+            adresse_text.setText(MP.getAdresses().get(i));
+            adresse_text.setPadding(30, 0, 0, 0);
+            adresses.addView(adresse_text);
+        }
         executor.execute(new Runnable() {
             @Override
             public void run() {
                 Bitmap data_photo = Common.getImageFromHTTP("https://nosdeputes.fr/depute/photo/" + MP.getSlug() + "/200");
                 String data_votes = null;
-                LinearLayout websites = findViewById(R.id.websites);
-                for(int i = 0; i < MP.getWebsites().size(); i++){
-                    TextView website_text = new TextView(mpActivity);
-                    website_text.setText(MP.getWebsites().get(i));
-                    website_text.setPadding(30, 0, 0, 0);
-                    websites.addView(website_text);
-                }
-
-                LinearLayout emails = findViewById(R.id.emails);
-                for(int i = 0; i < MP.getEmails().size(); i++){
-                    TextView email_text = new TextView(mpActivity);
-                    email_text.setText(MP.getEmails().get(i));
-                    email_text.setPadding(30, 0, 0, 0);
-                    emails.addView(email_text);
-                }
-
-                LinearLayout adresses = findViewById(R.id.adresses);
-                for(int i = 0; i < MP.getAdresses().size(); i++){
-                    TextView adresse_text = new TextView(mpActivity);
-                    adresse_text.setText(MP.getAdresses().get(i));
-                    adresse_text.setPadding(30, 0, 0, 0);
-                    adresses.addView(adresse_text);
-                }
                 try {
                     data_votes = Common.getDataFromHTTP("https://nosdeputes.fr/" + MP.getSlug() + "/votes/json");
                     String finalData_votes = data_votes;
