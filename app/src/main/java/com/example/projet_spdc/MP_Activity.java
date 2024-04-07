@@ -2,14 +2,18 @@ package com.example.projet_spdc;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.provider.Settings;
 import android.text.SpannableString;
 import android.text.method.LinkMovementMethod;
 import android.text.style.URLSpan;
@@ -17,6 +21,7 @@ import android.text.util.Linkify;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -39,6 +44,10 @@ import java.util.concurrent.Executors;
 
 public class MP_Activity extends AppCompatActivity {
     Depute MP;
+    ArrayList<String> listPhones = new ArrayList<>();
+
+    ArrayList<Button> listButtonCall = new ArrayList<>();
+    LinearLayout ll;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +65,7 @@ public class MP_Activity extends AppCompatActivity {
         ExecutorService executor = Executors.newSingleThreadExecutor();
 
         Handler handler = new Handler(Looper.getMainLooper());
+        ll = findViewById(R.id.llcontact);
 
         executor.execute(new Runnable() {
             @Override
@@ -93,6 +103,7 @@ public class MP_Activity extends AppCompatActivity {
         circo_mp.setText("Circonscription : " + MP.getNum_circo() + "");
         dep.setText("Département: "+MP.getDepartement());
 
+
         LinearLayout websites = findViewById(R.id.websites);
         for(int i = 0; i < MP.getWebsites().size(); i++){
             TextView website_text = new TextView(this);
@@ -115,6 +126,52 @@ public class MP_Activity extends AppCompatActivity {
             adresse_text.setText(MP.getAdresses().get(i));
             adresse_text.setPadding(30, 0, 0, 0);
             adresses.addView(adresse_text);
+            String[] splited = MP.getAdresses().get(i).split("Téléphone : ");
+            if(splited.length > 1){
+                String tel = splited[1];
+                tel = tel.replace("."," ");
+                listPhones.add(tel);
+            }
+        }
+        if(listPhones.size() > 0){
+            IntentFilter intentFilter = new IntentFilter("android.intent.action.AIRPLANE_MODE");
+
+            BroadcastReceiver airmodeReceiver = new BroadcastReceiver() {
+                @Override
+                public void onReceive(Context context, Intent intent) {
+                    Log.w("filters","filter is working!!!!!!!!!!");
+                    for(Button button : listButtonCall){
+                        button.setEnabled(!button.isEnabled());
+                    }
+                }
+            };
+            registerReceiver(airmodeReceiver, intentFilter);
+
+            Log.w("test","yeaaaaaaaaaah");
+            LinearLayout phonesFather = new LinearLayout(this);
+            ll.addView(phonesFather);
+            phonesFather.setOrientation(LinearLayout.VERTICAL);
+            TextView appelTXT = new TextView(this);
+            phonesFather.addView(appelTXT);
+            appelTXT.setText("Appeler :");
+
+            LinearLayout phones = new LinearLayout(this);
+            phones.setOrientation(LinearLayout.VERTICAL);
+            phonesFather.addView(phones);
+            for(String str : listPhones){
+                Button btn = new Button(this);
+                phones.addView(btn);
+                btn.setText(str);
+                listButtonCall.add(btn);
+                btn.setEnabled(Settings.System.getInt(getContentResolver(),
+                        Settings.Global.AIRPLANE_MODE_ON, 0) == 0);
+                btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        callMP(str);
+                    }
+                });
+            }
         }
     }
 
@@ -156,4 +213,10 @@ public class MP_Activity extends AppCompatActivity {
         group_activity.putExtra("groupe", Groupe.listeGroupe.indexOf(MP.getGroupe()));
         startActivity(group_activity);
     }
+    public void callMP(String phone){
+        Intent i_call = new Intent(Intent.ACTION_DIAL);
+        i_call.setData(Uri.parse("tel:" + phone));
+        startActivity(i_call);
+    }
+
 }
