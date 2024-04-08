@@ -45,15 +45,17 @@ public class GroupeLoader {
     }
 
     private void transformJSONObjectIntoGroupe(JSONObject object) throws JSONException {
-        Groupe groupe = new Groupe();
-        groupe.setId(Integer.parseInt(object.getString("id")));
-        groupe.setSlug(object.getString("slug"));
-        groupe.setNom(object.getString("nom"));
-        groupe.setAcronyme(object.getString("acronyme"));
-        groupe.setCurrentlyExist(Boolean.valueOf(object.getString("groupe_actuel")));
-        groupe.setColor(object.getString("couleur"));
-        groupe.setLink(object.getString("url_nosdeputes_api"));
-        groupe.confirmGroup();
+        if(!object.getString("nom").equals("false")){
+            Groupe groupe = new Groupe();
+            groupe.setId(Integer.parseInt(object.getString("id")));
+            groupe.setSlug(object.getString("slug"));
+            groupe.setNom(object.getString("nom"));
+            groupe.setAcronyme(object.getString("acronyme"));
+            groupe.setCurrentlyExist(Boolean.valueOf(object.getString("groupe_actuel")));
+            groupe.setColor(object.getString("couleur"));
+            groupe.setLink(object.getString("url_nosdeputes_api"));
+            groupe.confirmGroup();
+        }
     }
 
     public void decodeJson(String str) throws JSONException {
