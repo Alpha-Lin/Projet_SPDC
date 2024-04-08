@@ -118,9 +118,4 @@ public class FavoriActivity extends AppCompatActivity {
 
         return true;
     }
-
-    public void goToHome(){
-        Intent favIntent = new Intent(this, MainActivity.class);
-        startActivity(favIntent);
-    }
 }

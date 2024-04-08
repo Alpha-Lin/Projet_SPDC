@@ -51,14 +51,12 @@ public class MP_Activity extends AppCompatActivity  {
 
     ArrayList<Button> listButtonCall = new ArrayList<>();
     LinearLayout ll;
-
     Button favMPButtonAdd;
     Button favMPButtonDel;
     DBHandler handler;
 
     private SearchView searchBar;
     private Toolbar toolbar;
-    private Button homeBTN;
 
     public void goToHome(){
         Intent favIntent = new Intent(this, MainActivity.class);
