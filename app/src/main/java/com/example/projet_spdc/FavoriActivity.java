@@ -112,8 +112,8 @@ public class FavoriActivity extends AppCompatActivity {
             Intent favIntent = new Intent(this, FavoriActivity.class);
             startActivity(favIntent);
         }else if(item.getItemId() == R.id.aproposBTN){
-            /*Intent aboutIntent = new Intent(this, AboutActivity.class);
-            startActivity(aboutIntent);*/
+            Intent aboutIntent = new Intent(this, AboutActivity.class);
+            startActivity(aboutIntent);
         }
 
         return true;
