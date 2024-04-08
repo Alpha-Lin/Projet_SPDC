@@ -40,7 +40,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class MP_Activity extends AppCompatActivity implements View.OnClickListener {
+public class MP_Activity extends AppCompatActivity  {
     Depute MP;
     ArrayList<String> listPhones = new ArrayList<>();
 
@@ -228,14 +228,17 @@ public class MP_Activity extends AppCompatActivity implements View.OnClickListen
         startActivity(group_activity);
     }
 
+        
+
     public void callMP(String phone){
         Intent i_call = new Intent(Intent.ACTION_DIAL);
         i_call.setData(Uri.parse("tel:" + phone));
         startActivity(i_call);
     }
 
-    @Override
-    public void onClick(View v) {
+    
+    public void onClickMP(View v) {
+		Log.w("ajout de mp",""+v.getId());
         if(v.getId() == R.id.favMPButtonAdd) {
             handler.insertFavMP(MP.getId());
             favMPButtonAdd.setVisibility(View.GONE);

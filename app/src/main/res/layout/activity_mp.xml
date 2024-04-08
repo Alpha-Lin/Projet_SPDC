@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MP_Activity">
-
+    <include layout="@layout/toolbar_layout"
+        android:id="@+id/toolbar"/>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
@@ -29,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:onClick="onClick"
+                android:onClick="onClickMP"
                 android:text="Ajouter aux favoris"
                 android:visibility="gone" />
 
@@ -38,7 +39,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:onClick="onClick"
+                android:onClick="onClickMP"
                 android:text="Retirer des favoris"
                 android:visibility="gone" />
 
