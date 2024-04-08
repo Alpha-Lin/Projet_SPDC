@@ -17,40 +17,15 @@ import java.util.concurrent.Executors;
 /**
  * Permet de load un groupe.
  */
-public class GroupeLoader {
-    String param;
-    MainActivity mainActivity;
+public class GroupeLoader extends AbstractLoader{
+
 
     public GroupeLoader(MainActivity mainActivity){
-        param = "https://www.nosdeputes.fr/organismes/groupe/json";
-        this.mainActivity = mainActivity;
+        super.param = "https://www.nosdeputes.fr/organismes/groupe/json";
+        super.mainActivity = mainActivity;
     }
 
-    /**
-     * Lance le thread de connexion à l'API puis lance l'analyse du résultat
-     */
-    public void research() {
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        Handler handler = new Handler(Looper.getMainLooper());
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                String data = Common.getDataFromHTTP(param);
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            decodeJson(data);
-                        } catch (JSONException e) {
-                            throw new RuntimeException(e);
-                        }
 
-                        mainActivity.onGroupeLoaded();
-                    }
-                });
-            }
-        });
-    }
 
     /**
      * Transform un groupe sous format json en groupe et l(ajoute à la liste des groupes
@@ -85,5 +60,10 @@ public class GroupeLoader {
 
             transformJSONObjectIntoGroupe(insideOrganisme);
         }
+    }
+
+    @Override
+    void onLoaded() {
+        mainActivity.onGroupeLoaded();
     }
 }
