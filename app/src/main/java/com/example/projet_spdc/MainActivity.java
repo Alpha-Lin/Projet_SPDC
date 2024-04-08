@@ -32,8 +32,6 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     private ListView listViewMPs;
     private SearchView searchBar;
-    public static boolean isConnected;
-
     private BroadcastReceiver br;
     private Toolbar toolbar;
     private Button homeBTN;
@@ -49,14 +47,7 @@ public class MainActivity extends AppCompatActivity {
         br = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                Log.w("miamoooooooooooo","test");
-                ConnectivityManager cm =
-                        (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-                NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-                boolean isConnected = activeNetwork != null &&
-                        activeNetwork.isConnectedOrConnecting();
-                if (isConnected)
+                if (Common.checkConnection(context))
                     connected();
             }
         };
@@ -65,13 +56,7 @@ public class MainActivity extends AppCompatActivity {
         listViewMPs = findViewById(R.id.listViewMPs);
         searchBar = findViewById(R.id.search_bar);
 
-        ConnectivityManager cm =
-                (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        isConnected = activeNetwork != null &&
-                activeNetwork.isConnectedOrConnecting();
-        if (isConnected)
+        if (Common.checkConnection(this))
             connected();
     }
 

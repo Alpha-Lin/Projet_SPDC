@@ -18,9 +18,11 @@
             <ImageView
                 android:id="@+id/Photo_MP"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+
+                app:srcCompat="@drawable/image_mp" />
 
             <Button
                 android:id="@+id/favMPButtonAdd"
