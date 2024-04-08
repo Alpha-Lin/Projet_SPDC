@@ -165,7 +165,6 @@ public class MP_Activity extends AppCompatActivity  {
             BroadcastReceiver airmodeReceiver = new BroadcastReceiver() {
                 @Override
                 public void onReceive(Context context, Intent intent) {
-                    Log.w("filters","filter is working!!!!!!!!!!");
                     for(Button button : listButtonCall){
                         button.setEnabled(!button.isEnabled());
                     }
@@ -237,7 +236,6 @@ public class MP_Activity extends AppCompatActivity  {
 
         Intent group_activity = new Intent(this, GroupeActivity.class);
         group_activity.putExtra("groupe", Groupe.listeGroupe.indexOf(MP.getGroupe()));
-        Log.w("Groupe.listeGroupe.indexOf(MP.getGroupe())",""+Groupe.listeGroupe.indexOf(MP.getGroupe()));
         startActivity(group_activity);
     }
 
@@ -251,7 +249,6 @@ public class MP_Activity extends AppCompatActivity  {
 
     
     public void onClickMP(View v) {
-		Log.w("ajout de mp",""+v.getId());
         if(v.getId() == R.id.favMPButtonAdd) {
             handler.insertFavMP(MP.getId());
             favMPButtonAdd.setVisibility(View.GONE);
@@ -275,8 +272,8 @@ public class MP_Activity extends AppCompatActivity  {
             Intent favIntent = new Intent(this, FavoriActivity.class);
             startActivity(favIntent);
         }else if(item.getItemId() == R.id.aproposBTN){
-            /*Intent aboutIntent = new Intent(this, AboutActivity.class);
-            startActivity(aboutIntent);*/
+            Intent aboutIntent = new Intent(this, AboutActivity.class);
+            startActivity(aboutIntent);
         }
 
         return true;

@@ -14,39 +14,14 @@ import org.json.JSONObject;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class DeputeLoader {
-    String param;
-    MainActivity mainActivity;
+public class DeputeLoader extends AbstractLoader{
 
     public DeputeLoader(MainActivity mainActivity){
-        param = "https://www.nosdeputes.fr/deputes/json";
-        this.mainActivity = mainActivity;
+        super();
+        super.param = "https://www.nosdeputes.fr/deputes/json";
+        super.mainActivity = mainActivity;
     }
-    /**
-     * Lance le thread de connexion à l'API puis lance l'analyse du résultat
-     */
-    public void research() {
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        Handler handler = new Handler(Looper.getMainLooper());
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                String data = Common.getDataFromHTTP(param);
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            decodeJson(data);
-                        } catch (JSONException e) {
-                            throw new RuntimeException(e);
-                        }
 
-                        mainActivity.onMPsLoaded();
-                    }
-                });
-            }
-        });
-    }
 
     public DeputeLoader(String slug){
         super();
@@ -58,7 +33,7 @@ public class DeputeLoader {
      * @param str le fichier json
      * @throws JSONException si un objet ne correspond pas à un député au format valide
      */
-
+    @Override
     public void decodeJson(String str) throws JSONException {
         JSONObject jso = new JSONObject(str);
         JSONArray deputies = jso.getJSONArray("deputes");
@@ -66,6 +41,11 @@ public class DeputeLoader {
             JSONObject depute = (deputies.getJSONObject(i)).getJSONObject("depute");
             decodeDepute(depute);
         }
+    }
+
+    @Override
+    void onLoaded() {
+        mainActivity.onMPsLoaded();
     }
 
     /**

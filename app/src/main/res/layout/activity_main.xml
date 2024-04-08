@@ -7,8 +7,6 @@
     <include layout="@layout/toolbar_layout"
         android:id="@+id/toolbar"/>
 
-
-
     <TextView
         android:id="@+id/textLoading"
         android:layout_width="match_parent"

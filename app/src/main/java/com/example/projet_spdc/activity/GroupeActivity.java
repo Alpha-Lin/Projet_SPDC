@@ -36,7 +36,7 @@ public class GroupeActivity extends AppCompatActivity implements View.OnClickLis
 
     private SearchView searchBar;
     private Toolbar toolbar;
-    private Button homeBTN;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +74,7 @@ public class GroupeActivity extends AppCompatActivity implements View.OnClickLis
         accro.setText("Acronyme : " + gr.getAcronyme());
         nb.setText("Nombre de parlementaires : "+ gr.getListDepute().size());
         Context c = this;
+        //CLiquer sur un député permet d'aller sur ca page
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
@@ -90,6 +91,10 @@ public class GroupeActivity extends AppCompatActivity implements View.OnClickLis
         startActivity(favIntent);
     }
 
+    /**
+     *
+     * @param v le bouton favori
+     */
     @Override
     public void onClick(View v) {
         Log.d("Mon id gr : ", gr.getId() +"");
@@ -105,20 +110,33 @@ public class GroupeActivity extends AppCompatActivity implements View.OnClickLis
             favGroupButtonDel.setVisibility(View.GONE);
         }
     }
+
+    /**
+     *
+     * @param menu The options menu in which you place your items.
+     *
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
         return true;
     }
 
+    /**
+     *
+     * @param item The menu item that was selected.
+     *
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.favBtn){
             Intent favIntent = new Intent(this, FavoriActivity.class);
             startActivity(favIntent);
         }else if(item.getItemId() == R.id.aproposBTN){
-            /*Intent aboutIntent = new Intent(this, AboutActivity.class);
-            startActivity(aboutIntent);*/
+            Intent aboutIntent = new Intent(this, AboutActivity.class);
+            startActivity(aboutIntent);
         }
 
         return true;
