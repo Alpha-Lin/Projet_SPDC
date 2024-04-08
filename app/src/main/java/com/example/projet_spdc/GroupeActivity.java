@@ -114,8 +114,8 @@ public class GroupeActivity extends AppCompatActivity implements View.OnClickLis
             Intent favIntent = new Intent(this, FavoriActivity.class);
             startActivity(favIntent);
         }else if(item.getItemId() == R.id.aproposBTN){
-            /*Intent aboutIntent = new Intent(this, AboutActivity.class);
-            startActivity(aboutIntent);*/
+            Intent aboutIntent = new Intent(this, AboutActivity.class);
+            startActivity(aboutIntent);
         }
 
         return true;
