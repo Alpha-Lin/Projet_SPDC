@@ -1,7 +1,11 @@
-package com.example.projet_spdc;
+package com.example.projet_spdc.loader;
 
 import android.os.Handler;
 import android.os.Looper;
+
+import com.example.projet_spdc.Common;
+import com.example.projet_spdc.object.Depute;
+import com.example.projet_spdc.activity.MainActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,7 +22,9 @@ public class DeputeLoader {
         param = "https://www.nosdeputes.fr/deputes/json";
         this.mainActivity = mainActivity;
     }
-
+    /**
+     * Lance le thread de connexion à l'API puis lance l'analyse du résultat
+     */
     public void research() {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Handler handler = new Handler(Looper.getMainLooper());
@@ -47,6 +53,12 @@ public class DeputeLoader {
         param = "https://www.nosdeputes.fr/organisme/" + slug + "/json";
     }
 
+    /**
+     * Analyse un fichier json de liste de député
+     * @param str le fichier json
+     * @throws JSONException si un objet ne correspond pas à un député au format valide
+     */
+
     public void decodeJson(String str) throws JSONException {
         JSONObject jso = new JSONObject(str);
         JSONArray deputies = jso.getJSONArray("deputes");
@@ -56,6 +68,11 @@ public class DeputeLoader {
         }
     }
 
+    /**
+     * Transforme un JSON objet représentant un député en député et l'ajoute à la liste des députés
+     * @param jsonObject le député sous format JSON
+     * @throws JSONException si le fichier json n'est pas correct
+     */
     private static void decodeDepute(JSONObject jsonObject) throws JSONException {
         Depute depute = new Depute();
         depute.setId(jsonObject.getInt("id"));

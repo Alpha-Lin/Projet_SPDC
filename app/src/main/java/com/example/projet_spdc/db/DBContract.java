@@ -1,4 +1,4 @@
-package com.example.projet_spdc;
+package com.example.projet_spdc.db;
 
 public class DBContract {
     public static class favMP {

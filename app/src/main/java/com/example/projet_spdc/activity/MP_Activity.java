@@ -1,4 +1,4 @@
-package com.example.projet_spdc;
+package com.example.projet_spdc.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,33 +9,28 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.Settings;
-import android.text.SpannableString;
-import android.text.method.LinkMovementMethod;
-import android.text.style.URLSpan;
-import android.text.util.Linkify;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
+
+import com.example.projet_spdc.Common;
+import com.example.projet_spdc.db.DBHandler;
+import com.example.projet_spdc.object.Depute;
+import com.example.projet_spdc.R;
+import com.example.projet_spdc.object.Vote;
+import com.example.projet_spdc.object.Groupe;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -162,6 +157,8 @@ public class MP_Activity extends AppCompatActivity  {
                 listPhones.add(tel);
             }
         }
+        
+        //Ajout des télpehones si présent
         if(listPhones.size() > 0){
             IntentFilter intentFilter = new IntentFilter("android.intent.action.AIRPLANE_MODE");
 
@@ -176,7 +173,6 @@ public class MP_Activity extends AppCompatActivity  {
             };
             registerReceiver(airmodeReceiver, intentFilter);
 
-            Log.w("test","yeaaaaaaaaaah");
             LinearLayout phonesFather = new LinearLayout(this);
             ll.addView(phonesFather);
             phonesFather.setOrientation(LinearLayout.VERTICAL);

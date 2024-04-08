@@ -1,4 +1,4 @@
-package com.example.projet_spdc;
+package com.example.projet_spdc.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,9 +8,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Color;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 
 import android.os.Bundle;
 
@@ -20,11 +17,18 @@ import android.view.View;
 
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;;
+;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
+
+import com.example.projet_spdc.Common;
+import com.example.projet_spdc.object.Depute;
+import com.example.projet_spdc.R;
+import com.example.projet_spdc.loader.DeputeLoader;
+import com.example.projet_spdc.object.Groupe;
+import com.example.projet_spdc.loader.GroupeLoader;
 
 import java.util.ArrayList;
 

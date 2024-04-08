@@ -1,8 +1,11 @@
-package com.example.projet_spdc;
+package com.example.projet_spdc.object;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * Représente un député
+ */
 public class Depute implements Comparable<Depute>{
     static ArrayList<Depute> listDepute = new ArrayList<>();
     private ArrayList<Vote> listVotes = new ArrayList<>();
@@ -293,6 +296,11 @@ public class Depute implements Comparable<Depute>{
                 "id=" + id +
                 '}';
     }
+
+    /**
+     * Trouve à quel groupe appartient l'acronyme et met l'attribut groupe au groupe trouvé.
+     * @param accronymeGroupe l'acronyme du groupe à trouver
+     */
     public void findGroupAndAddIt(String accronymeGroupe){
         for(Groupe groupe: Groupe.listeGroupe){
             if(Objects.equals(groupe.acronyme, accronymeGroupe)){
@@ -311,6 +319,9 @@ public class Depute implements Comparable<Depute>{
         return listVotes;
     }
 
+    /**
+     * Ajoute le député à la liste des députés
+     */
     public void confirmDepute(){
         listDepute.add(this);
     }
