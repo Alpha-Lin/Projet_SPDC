@@ -13,5 +13,5 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="Projet_SPDC est un projet de L3 qui repose sur l'API NosDeputes.fr" />
+        android:text="Projet_SPDC est un projet de L3 qui repose sur l'API NosDeputes.fr \n Fait avec amour par Adrian Lagasse et Andreas Mulard." />
 </androidx.constraintlayout.widget.ConstraintLayout>
