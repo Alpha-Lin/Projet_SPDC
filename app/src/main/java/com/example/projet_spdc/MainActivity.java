@@ -4,8 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
 import android.os.Bundle;
 
@@ -26,6 +31,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     private ListView listViewMPs;
     private SearchView searchBar;
+    private BroadcastReceiver br;
     private Toolbar toolbar;
     private Button homeBTN;
 
@@ -33,12 +39,38 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        IntentFilter intentFilter = new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE");
+
+        MainActivity ma = this;
+
+        br = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                if (Common.checkConnection(context))
+                    connected();
+            }
+        };
+        registerReceiver(br, intentFilter);
+
+        listViewMPs = findViewById(R.id.listViewMPs);
+        searchBar = findViewById(R.id.search_bar);
+
+        if (Common.checkConnection(this))
+            connected();
+    }
+
+    public void connected(){
+        if (br != null)
+            unregisterReceiver(br);
+
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         listViewMPs = findViewById(R.id.listViewMPs);
         searchBar = findViewById(R.id.search_bar);
         toolbar.setTitle("");
+      
         setupSearchView();
+      
         GroupeLoader gr = new GroupeLoader(this);
 
         Context ct = this;

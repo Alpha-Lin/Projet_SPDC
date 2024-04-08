@@ -74,32 +74,34 @@ public class MP_Activity extends AppCompatActivity  {
             favMPButtonAdd.setVisibility(View.VISIBLE);
 
         // Pour charger la photo de profile et les votes
-        ExecutorService executor = Executors.newSingleThreadExecutor();
+        if(Common.checkConnection(this)){
+            ExecutorService executor = Executors.newSingleThreadExecutor();
 
-        Handler handler = new Handler(Looper.getMainLooper());
-        ll = findViewById(R.id.llcontact);
+            Handler handler = new Handler(Looper.getMainLooper());
+            ll = findViewById(R.id.llcontact);
 
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                Bitmap data_photo = Common.getImageFromHTTP("https://nosdeputes.fr/depute/photo/" + MP.getSlug() + "/200");
-                String data_votes = Common.getDataFromHTTP("https://nosdeputes.fr/" + MP.getSlug() + "/votes/json");
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        ImageView photo_MP = findViewById(R.id.Photo_MP);
-                        photo_MP.setImageBitmap(data_photo);
+            executor.execute(new Runnable() {
+                @Override
+                public void run() {
+                    Bitmap data_photo = Common.getImageFromHTTP("https://nosdeputes.fr/depute/photo/" + MP.getSlug() + "/200");
+                    String data_votes = Common.getDataFromHTTP("https://nosdeputes.fr/" + MP.getSlug() + "/votes/json");
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            ImageView photo_MP = findViewById(R.id.Photo_MP);
+                            photo_MP.setImageBitmap(data_photo);
 
-                        try {
-                            decodeJSONVotes(data_votes);
-                        } catch (JSONException e) {
-                            throw new RuntimeException(e);
+                            try {
+                                decodeJSONVotes(data_votes);
+                            } catch (JSONException e) {
+                                throw new RuntimeException(e);
+                            }
+                            onVotesLoaded();
                         }
-                        onVotesLoaded();
-                    }
-                });
-            }
-        });
+                    });
+                }
+            });
+        }
 
         TextView nom_MP = findViewById(R.id.Nom_MP);
         TextView debut_mandat = findViewById(R.id.Debut_mandat);

@@ -1,7 +1,10 @@
 package com.example.projet_spdc;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -46,5 +49,14 @@ public class Common {
             e.printStackTrace();
         }
         return bitmap;
+    }
+
+    public static boolean checkConnection(Context ct){
+        ConnectivityManager cm =
+                (ConnectivityManager) ct.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
     }
 }
