@@ -1,8 +1,10 @@
-package com.example.projet_spdc;
+package com.example.projet_spdc.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.projet_spdc.R;
 
 public class AboutActivity extends AppCompatActivity {
 
