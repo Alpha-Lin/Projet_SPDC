@@ -1,4 +1,4 @@
-package com.example.projet_spdc;
+package com.example.projet_spdc.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -6,7 +6,6 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +14,11 @@ import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
 
+
+import com.example.projet_spdc.db.DBHandler;
+import com.example.projet_spdc.object.Depute;
+import com.example.projet_spdc.R;
+import com.example.projet_spdc.object.Groupe;
 
 import java.util.List;
 

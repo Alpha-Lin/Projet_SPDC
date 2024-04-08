@@ -1,24 +1,23 @@
-package com.example.projet_spdc;
+package com.example.projet_spdc.object;
 
 import android.graphics.Color;
 
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class Groupe {
-    static ArrayList<Groupe> listeGroupe = new ArrayList<>();
+    public static ArrayList<Groupe> listeGroupe = new ArrayList<>();
     int id;
     String slug;
     String nom;
-    String acronyme;
+    public String acronyme;
     Boolean isActive;
     Color color;
     int order;
     String link;
 
-    ArrayList<Depute> listDepute = new ArrayList<>();
+    public ArrayList<Depute> listDepute = new ArrayList<>();
 
 
     Boolean currentlyExist;

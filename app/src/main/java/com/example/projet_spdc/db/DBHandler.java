@@ -1,4 +1,4 @@
-package com.example.projet_spdc;
+package com.example.projet_spdc.db;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,9 +7,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.example.projet_spdc.db.DBContract;
+import com.example.projet_spdc.object.Depute;
+import com.example.projet_spdc.object.Groupe;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class DBHandler extends SQLiteOpenHelper {
     //change version when upgraded

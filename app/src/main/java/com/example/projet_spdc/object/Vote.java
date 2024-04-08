@@ -1,4 +1,4 @@
-package com.example.projet_spdc;
+package com.example.projet_spdc.object;
 
 public class Vote {
     public Vote(String date, String intitutle, String position){

@@ -1,4 +1,4 @@
-package com.example.projet_spdc;
+package com.example.projet_spdc.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,7 +17,11 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.example.projet_spdc.db.DBHandler;
+import com.example.projet_spdc.object.Depute;
+import com.example.projet_spdc.R;
+import com.example.projet_spdc.object.Groupe;
 
 import java.util.ArrayList;
 
@@ -49,7 +53,6 @@ public class GroupeActivity extends AppCompatActivity implements View.OnClickLis
         favGroupButtonDel = findViewById(R.id.favGroupButtonDel);
 
         gr = Groupe.listeGroupe.get(getIntent().getIntExtra("groupe",0));
-
         if(handler.selectAllFavGroup().contains(gr))
             favGroupButtonDel.setVisibility(View.VISIBLE);
         else
