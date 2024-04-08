@@ -1,16 +1,21 @@
 package com.example.projet_spdc;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,10 +28,20 @@ public class GroupeActivity extends AppCompatActivity implements View.OnClickLis
 
     Button favGroupButtonAdd;
     Button favGroupButtonDel;
+
+
+    private SearchView searchBar;
+    private Toolbar toolbar;
+    private Button homeBTN;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_groupe);
+
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        searchBar = findViewById(R.id.search_bar);
+        toolbar.setTitle("");
 
         handler = new DBHandler(this);
 
@@ -67,6 +82,11 @@ public class GroupeActivity extends AppCompatActivity implements View.OnClickLis
         });
     }
 
+    public void goToHome(){
+        Intent favIntent = new Intent(this, MainActivity.class);
+        startActivity(favIntent);
+    }
+
     @Override
     public void onClick(View v) {
         Log.d("Mon id gr : ", gr.getId() +"");
@@ -81,5 +101,23 @@ public class GroupeActivity extends AppCompatActivity implements View.OnClickLis
             favGroupButtonAdd.setVisibility(View.VISIBLE);
             favGroupButtonDel.setVisibility(View.GONE);
         }
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.favBtn){
+            Intent favIntent = new Intent(this, FavoriActivity.class);
+            startActivity(favIntent);
+        }else if(item.getItemId() == R.id.aproposBTN){
+            /*Intent aboutIntent = new Intent(this, AboutActivity.class);
+            startActivity(aboutIntent);*/
+        }
+
+        return true;
     }
 }

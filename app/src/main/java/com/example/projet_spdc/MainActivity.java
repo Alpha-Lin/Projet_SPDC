@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
     private SearchView searchBar;
     private BroadcastReceiver br;
     private Toolbar toolbar;
-    private Button homeBTN;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,21 +71,6 @@ public class MainActivity extends AppCompatActivity {
         setupSearchView();
       
         GroupeLoader gr = new GroupeLoader(this);
-
-        Context ct = this;
-
-        homeBTN = findViewById(R.id.home_tb);
-        homeBTN.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                /*Intent i= new Intent(ct, MainActivity.class);
-                startActivity(i);
-
-                ou
-
-                finish();*/
-            }
-        });
 
         gr.research();
     }
@@ -169,5 +153,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return true;
+    }
+    public void goToHome(){
+        Intent favIntent = new Intent(this, MainActivity.class);
+        startActivity(favIntent);
     }
 }

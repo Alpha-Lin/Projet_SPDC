@@ -5,16 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MP_Activity">
-    <include layout="@layout/toolbar_layout"
-        android:id="@+id/toolbar"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+            <include layout="@layout/toolbar_layout"
+                android:id="@+id/toolbar"/>
 
             <ImageView
                 android:id="@+id/Photo_MP"
