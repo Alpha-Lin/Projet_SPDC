@@ -1,6 +1,7 @@
 package com.example.projet_spdc;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,12 +11,13 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 public class FavoriActivity extends AppCompatActivity {
     LinearLayout depLayout;
     LinearLayout groupLayout;
+    Toolbar toolbar;
 
     DBHandler handler;
     @Override
@@ -24,6 +26,8 @@ public class FavoriActivity extends AppCompatActivity {
         setContentView(R.layout.activity_favori);
         depLayout = findViewById(R.id.layoutForFavDep);
         groupLayout = findViewById(R.id.layoutForFavGroup);
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         FavoriActivity fav = this;
 
         handler = new DBHandler(this);

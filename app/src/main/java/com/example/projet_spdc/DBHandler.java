@@ -37,6 +37,7 @@ public class DBHandler extends SQLiteOpenHelper {
         row.put(DBContract.favMP._ID, id);
 
         long newRowId = db.insert(DBContract.favMP.TABLE_NAME,null,row);
+        row = new ContentValues();
     }
 
     public void insertFavGroup(int id){
@@ -47,7 +48,7 @@ public class DBHandler extends SQLiteOpenHelper {
         Log.d("Ajout ID : ", id + "");
 
         long newRowId = db.insert(DBContract.favGroup.TABLE_NAME,null,row);
-
+        row = new ContentValues();
         Log.d("Ajout group : ", newRowId + "");
     }
 
@@ -85,7 +86,7 @@ public class DBHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(
-                DBContract.favMP.TABLE_NAME,
+                DBContract.favGroup.TABLE_NAME,
                 null,
                 null,
                 null,
