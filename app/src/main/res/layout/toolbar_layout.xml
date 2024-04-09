@@ -6,7 +6,15 @@
     android:id="@+id/toolbar"
     android:background="@color/design_default_color_primary_dark"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
+    app:title="Projet SPDC"
     app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/toolbarTXT"
+        android:text="Projet SPDC">
+
+    </TextView>
 
     <SearchView
         android:id="@+id/search_bar"

@@ -23,6 +23,8 @@ import com.example.projet_spdc.object.Depute;
 import com.example.projet_spdc.R;
 import com.example.projet_spdc.object.Groupe;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class GroupeActivity extends AppCompatActivity implements View.OnClickListener {
@@ -45,7 +47,6 @@ public class GroupeActivity extends AppCompatActivity implements View.OnClickLis
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         searchBar = findViewById(R.id.search_bar);
-        toolbar.setTitle("");
 
         handler = new DBHandler(this);
 
@@ -71,9 +72,13 @@ public class GroupeActivity extends AppCompatActivity implements View.OnClickLis
         list.setAdapter(arrayAdapter);
 
         groupe.setText("Nom : "+ gr.getNom());
+        toolbar.setTitle("Groupe: "+gr.getNom());
+
         accro.setText("Acronyme : " + gr.getAcronyme());
         nb.setText("Nombre de parlementaires : "+ gr.getListDepute().size());
         Context c = this;
+        TextView txt = findViewById(R.id.toolbarTXT);
+        txt.setText("Groupe: "+gr.getNom());
         //CLiquer sur un député permet d'aller sur ca page
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

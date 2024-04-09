@@ -64,7 +64,6 @@ public class MP_Activity extends AppCompatActivity  {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         searchBar = findViewById(R.id.search_bar);
-        toolbar.setTitle("");
         favMPButtonAdd = findViewById(R.id.favMPButtonAdd);
         favMPButtonDel = findViewById(R.id.favMPButtonDel);
 
@@ -83,6 +82,7 @@ public class MP_Activity extends AppCompatActivity  {
             favMPButtonAdd.setVisibility(View.VISIBLE);
 
         // Pour charger la photo de profile et les votes
+
         if(Common.checkConnection(this)){
             ExecutorService executor = Executors.newSingleThreadExecutor();
 
@@ -197,6 +197,10 @@ public class MP_Activity extends AppCompatActivity  {
                 });
             }
         }
+        toolbar.setTitle("Député: "+MP.getPrenom()+" "+MP.getNom_de_famille());
+        TextView txt = findViewById(R.id.toolbarTXT);
+        txt.setText("Député: "+MP.getPrenom()+" "+MP.getNom_de_famille());
+
     }
 
     public void decodeJSONVotes(String data) throws JSONException {

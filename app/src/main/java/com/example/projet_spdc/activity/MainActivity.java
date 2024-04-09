@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         listViewMPs = findViewById(R.id.listViewMPs);
         searchBar = findViewById(R.id.search_bar);
-        toolbar.setTitle("");
+        toolbar.setTitle("Home");
       
         setupSearchView();
       

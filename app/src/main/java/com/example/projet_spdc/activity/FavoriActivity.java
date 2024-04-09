@@ -103,6 +103,8 @@ public class FavoriActivity extends AppCompatActivity {
             l.addView(b);
             groupLayout.addView(l);
         }
+        TextView txt = findViewById(R.id.toolbarTXT);
+        txt.setText("Favori");
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
