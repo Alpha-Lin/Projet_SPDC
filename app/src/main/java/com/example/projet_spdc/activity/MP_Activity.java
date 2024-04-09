@@ -126,13 +126,19 @@ public class MP_Activity extends AppCompatActivity  {
         circo_mp.setText("Circonscription : " + MP.getNum_circo() + "");
         dep.setText("Département: "+MP.getDepartement());
 
-
+        MP_Activity mpActivity = this;
         LinearLayout websites = findViewById(R.id.websites);
         for(int i = 0; i < MP.getWebsites().size(); i++){
             TextView website_text = new TextView(this);
             website_text.setText(MP.getWebsites().get(i));
             website_text.setPadding(30, 0, 0, 0);
             websites.addView(website_text);
+            int finalI = i;
+            website_text.setOnClickListener(v -> {
+                Intent group_activity = new Intent(mpActivity, WebActivity.class);
+                group_activity.putExtra("website",MP.getWebsites().get(finalI));
+                startActivity(group_activity);
+            });
         }
 
         LinearLayout emails = findViewById(R.id.emails);
@@ -141,6 +147,15 @@ public class MP_Activity extends AppCompatActivity  {
             email_text.setText(MP.getEmails().get(i));
             email_text.setPadding(30, 0, 0, 0);
             emails.addView(email_text);
+            email_text.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent mailIntent = new Intent(Intent.ACTION_VIEW);
+                    Uri data = Uri.parse("mailto:to="+email_text.getText().toString());
+                    mailIntent.setData(data);
+                    startActivity(Intent.createChooser(mailIntent, "Send mail..."));
+                }
+            });
         }
 
         LinearLayout adresses = findViewById(R.id.adresses);
@@ -156,6 +171,16 @@ public class MP_Activity extends AppCompatActivity  {
                 tel = tel.replace("."," ");
                 listPhones.add(tel);
             }
+            adresse_text.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String url = "https://www.google.com/maps/search/"+adresse_text.getText().toString();
+                    Intent group_activity = new Intent(mpActivity, WebActivity.class);
+                    group_activity.putExtra("website",url);
+                    startActivity(group_activity);
+
+                }
+            });
         }
         
         //Ajout des télpehones si présent
@@ -243,15 +268,21 @@ public class MP_Activity extends AppCompatActivity  {
         startActivity(group_activity);
     }
 
-        
 
+    /**
+     * Permet d'appeler un député
+     * @param phone le numéro à appeler
+     */
     public void callMP(String phone){
         Intent i_call = new Intent(Intent.ACTION_DIAL);
         i_call.setData(Uri.parse("tel:" + phone));
         startActivity(i_call);
     }
 
-    
+    /**
+     * Permet d'ajouter ou retirer des favoris un député
+     * @param v le bouton
+     */
     public void onClickMP(View v) {
         if(v.getId() == R.id.favMPButtonAdd) {
             handler.insertFavMP(MP.getId());
