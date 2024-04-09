@@ -147,6 +147,15 @@ public class MP_Activity extends AppCompatActivity  {
             email_text.setText(MP.getEmails().get(i));
             email_text.setPadding(30, 0, 0, 0);
             emails.addView(email_text);
+            email_text.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent mailIntent = new Intent(Intent.ACTION_VIEW);
+                    Uri data = Uri.parse("mailto:to="+email_text.getText().toString());
+                    mailIntent.setData(data);
+                    startActivity(Intent.createChooser(mailIntent, "Send mail..."));
+                }
+            });
         }
 
         LinearLayout adresses = findViewById(R.id.adresses);
