@@ -304,7 +304,8 @@ public class Depute implements Comparable<Depute>{
     public void findGroupAndAddIt(String accronymeGroupe){
         for(Groupe groupe: Groupe.listeGroupe){
             if(Objects.equals(groupe.acronyme, accronymeGroupe)){
-                groupe.addDepute(this);
+                if(!groupe.listDepute.contains(this))
+                    groupe.addDepute(this);
 
                 this.groupe = groupe;
             }
